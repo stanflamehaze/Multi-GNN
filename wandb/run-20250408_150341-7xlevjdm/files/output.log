@@ -1,0 +1,1669 @@
+2025-04-08 15:03:42,335 [INFO ] Wandb run initialized: fancy-universe-7 (ID: 7xlevjdm)
+2025-04-08 15:03:42,336 [INFO ] Wandb dashboard: https://wandb.ai/dg5542118-university-of-strathclyde/aml_gnn_project/runs/7xlevjdm
+2025-04-08 15:03:42,752 [INFO ] Node features: 1, Edge features: 4
+2025-04-08 15:03:42,778 [INFO ] Initializing new model parameters and optimizer.
+C:\Users\user\anaconda3\envs\env39\lib\site-packages\torch\cuda\__init__.py:235: UserWarning:
+NVIDIA GeForce RTX 5090 with CUDA capability sm_120 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_50 sm_60 sm_61 sm_70 sm_75 sm_80 sm_86 sm_90.
+If you want to use the NVIDIA GeForce RTX 5090 GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(
+2025-04-08 15:03:43,063 [INFO ] Model Summary:
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\user\anaconda3\envs\env39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Users\user\anaconda3\envs\env39\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 422-423: character maps to <undefined>
+Call stack:
+  File "C:\Users\user\Multi-GNN\main.py", line 41, in <module>
+    main()
+  File "C:\Users\user\Multi-GNN\main.py", line 34, in main
+    train_gnn(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, args, data_config)
+  File "C:\Users\user\Multi-GNN\training.py", line 449, in train_gnn
+    logging.info(summary(model, sample_x, sample_edge_index, sample_edge_attr)) # [Source 82]
+Message: '+-----------------------+-----------------------------------------+----------------+----------+\n| Layer                 | Input Shape                             | Output Shape   | #Param   |\n|-----------------------+-----------------------------------------+----------------+----------|\n| RGCN                  | [193245, 1], [2, 1642488], [1642488, 4] | [1642488, 2]   | 90,543   |\n| ├─(node_emb)Linear    | [193245, 1]                             | [193245, 66]   | 132      |\n| ├─(edge_emb)Linear    | [1642488, 4]                            | [1642488, 66]  | 330      |\n| ├─(convs)ModuleList   | --                                      | --             | 78,540   |\n| │    └─(0)RGCNConv    | [193245, 66], [2, 1642488], [1642488]   | [193245, 66]   | 39,270   |\n| │    └─(1)RGCNConv    | [193245, 66], [2, 1642488], [1642488]   | [193245, 66]   | 39,270   |\n| ├─(bns)ModuleList     | --                                      | --             | 264      |\n| │    └─(0)BatchNorm1d | [193245, 66]                            | [193245, 66]   | 132      |\n| │    └─(1)BatchNorm1d | [193245, 66]                            | [193245, 66]   | 132      |\n| ├─(mlp)Sequential     | [1642488, 198]                          | [1642488, 2]   | 11,277   |\n| │    └─(0)Linear      | [1642488, 198]                          | [1642488, 50]  | 9,950    |\n| │    └─(1)ReLU        | [1642488, 50]                           | [1642488, 50]  | --       |\n| │    └─(2)Dropout     | [1642488, 50]                           | [1642488, 50]  | --       |\n| │    └─(3)Linear      | [1642488, 50]                           | [1642488, 25]  | 1,275    |\n| │    └─(4)ReLU        | [1642488, 25]                           | [1642488, 25]  | --       |\n| │    └─(5)Dropout     | [1642488, 25]                           | [1642488, 25]  | --       |\n| │    └─(6)Linear      | [1642488, 25]                           | [1642488, 2]   | 52       |\n+-----------------------+-----------------------------------------+----------------+----------+'
+Arguments: ()
+2025-04-08 15:03:45,244 [INFO ] +-----------------------+-----------------------------------------+----------------+----------+
+| Layer                 | Input Shape                             | Output Shape   | #Param   |
+|-----------------------+-----------------------------------------+----------------+----------|
+| RGCN                  | [193245, 1], [2, 1642488], [1642488, 4] | [1642488, 2]   | 90,543   |
+| ├─(node_emb)Linear    | [193245, 1]                             | [193245, 66]   | 132      |
+| ├─(edge_emb)Linear    | [1642488, 4]                            | [1642488, 66]  | 330      |
+| ├─(convs)ModuleList   | --                                      | --             | 78,540   |
+| │    └─(0)RGCNConv    | [193245, 66], [2, 1642488], [1642488]   | [193245, 66]   | 39,270   |
+| │    └─(1)RGCNConv    | [193245, 66], [2, 1642488], [1642488]   | [193245, 66]   | 39,270   |
+| ├─(bns)ModuleList     | --                                      | --             | 264      |
+| │    └─(0)BatchNorm1d | [193245, 66]                            | [193245, 66]   | 132      |
+| │    └─(1)BatchNorm1d | [193245, 66]                            | [193245, 66]   | 132      |
+| ├─(mlp)Sequential     | [1642488, 198]                          | [1642488, 2]   | 11,277   |
+| │    └─(0)Linear      | [1642488, 198]                          | [1642488, 50]  | 9,950    |
+| │    └─(1)ReLU        | [1642488, 50]                           | [1642488, 50]  | --       |
+| │    └─(2)Dropout     | [1642488, 50]                           | [1642488, 50]  | --       |
+| │    └─(3)Linear      | [1642488, 50]                           | [1642488, 25]  | 1,275    |
+| │    └─(4)ReLU        | [1642488, 25]                           | [1642488, 25]  | --       |
+| │    └─(5)Dropout     | [1642488, 25]                           | [1642488, 25]  | --       |
+| │    └─(6)Linear      | [1642488, 25]                           | [1642488, 2]   | 52       |
++-----------------------+-----------------------------------------+----------------+----------+
+2025-04-08 15:03:45,250 [INFO ] Using CrossEntropyLoss with weights: [1.0000182882773443, 9.23]
+2025-04-08 15:03:45,250 [INFO ] Starting homogenous GNN training for 100 epochs...
+2025-04-08 15:03:45,250 [INFO ] Config: {'epochs': 100, 'batch_size': 73728, 'model': 'rgcn', 'data': 'Small_HI', 'num_neighbors': [100, 100], 'lr': 0.006213266113989207, 'n_hidden': 66.00315515631006, 'n_gnn_layers': 2, 'loss': 'ce', 'w_ce1': 1.0000182882773443, 'w_ce2': 9.23, 'dropout': 0.00983468338330501, 'final_dropout': 0.10527690625126304, 'n_heads': None, 'emlps': False, 'reverse_mp': False, 'ports': False, 'tds': False, 'ego': False, 'seed': 1}
+2025-04-08 15:03:45,251 [INFO ] --- Epoch 1/100 ---
+2025-04-08 15:04:14,746 [INFO ]   Training Loss: 0.0764
+2025-04-08 15:04:14,747 [INFO ]   Train Metrics - F1: 0.0018, Precision: 0.0011, Recall: 0.0047
+2025-04-08 15:04:14,748 [INFO ]   Train Confusion Matrix:
+[[3234646   11060]
+ [   2518      12]]
+2025-04-08 15:04:14,748 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:04:26,204 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:04:38,565 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:04:38,565 [INFO ]   Validation Confusion Matrix:
+[[964432      0]
+ [  1036      0]]
+2025-04-08 15:04:38,565 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:04:38,565 [INFO ]   Test Confusion Matrix:
+[[861445      0]
+ [  1611      0]]
+2025-04-08 15:04:38,566 [INFO ] --- Epoch 2/100 ---
+2025-04-08 15:05:08,055 [INFO ]   Training Loss: 0.0329
+2025-04-08 15:05:08,055 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:05:08,055 [INFO ]   Train Confusion Matrix:
+[[3245681       0]
+ [   2530       0]]
+2025-04-08 15:05:08,055 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:05:19,536 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:05:31,745 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:05:31,745 [INFO ]   Validation Confusion Matrix:
+[[964426      0]
+ [  1036      0]]
+2025-04-08 15:05:31,745 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:05:31,747 [INFO ]   Test Confusion Matrix:
+[[861433      0]
+ [  1611      0]]
+2025-04-08 15:05:31,747 [INFO ] --- Epoch 3/100 ---
+2025-04-08 15:06:01,108 [INFO ]   Training Loss: 0.0303
+2025-04-08 15:06:01,108 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:06:01,108 [INFO ]   Train Confusion Matrix:
+[[3245730       0]
+ [   2530       0]]
+2025-04-08 15:06:01,109 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:06:12,796 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:06:25,114 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:06:25,114 [INFO ]   Validation Confusion Matrix:
+[[964446      0]
+ [  1036      0]]
+2025-04-08 15:06:25,114 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:06:25,115 [INFO ]   Test Confusion Matrix:
+[[861445      0]
+ [  1611      0]]
+2025-04-08 15:06:25,115 [INFO ] --- Epoch 4/100 ---
+2025-04-08 15:06:54,218 [INFO ]   Training Loss: 0.0285
+2025-04-08 15:06:54,218 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:06:54,218 [INFO ]   Train Confusion Matrix:
+[[3245727       0]
+ [   2530       0]]
+2025-04-08 15:06:54,218 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:07:05,843 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:07:18,232 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:07:18,233 [INFO ]   Validation Confusion Matrix:
+[[964436      0]
+ [  1036      0]]
+2025-04-08 15:07:18,234 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:07:18,234 [INFO ]   Test Confusion Matrix:
+[[861457      0]
+ [  1611      0]]
+2025-04-08 15:07:18,234 [INFO ] --- Epoch 5/100 ---
+2025-04-08 15:07:47,756 [INFO ]   Training Loss: 0.0270
+2025-04-08 15:07:47,757 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:07:47,757 [INFO ]   Train Confusion Matrix:
+[[3245721       0]
+ [   2530       0]]
+2025-04-08 15:07:47,757 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:07:59,386 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:08:11,728 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:08:11,729 [INFO ]   Validation Confusion Matrix:
+[[964434      0]
+ [  1036      0]]
+2025-04-08 15:08:11,730 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:08:11,730 [INFO ]   Test Confusion Matrix:
+[[861458      0]
+ [  1611      0]]
+2025-04-08 15:08:11,730 [INFO ] --- Epoch 6/100 ---
+2025-04-08 15:08:41,138 [INFO ]   Training Loss: 0.0269
+2025-04-08 15:08:41,138 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:08:41,139 [INFO ]   Train Confusion Matrix:
+[[3245729       0]
+ [   2530       0]]
+2025-04-08 15:08:41,139 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:08:52,806 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:09:05,140 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:09:05,142 [INFO ]   Validation Confusion Matrix:
+[[964429      0]
+ [  1035      0]]
+2025-04-08 15:09:05,143 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:09:05,143 [INFO ]   Test Confusion Matrix:
+[[861434      0]
+ [  1611      0]]
+2025-04-08 15:09:05,143 [INFO ] --- Epoch 7/100 ---
+2025-04-08 15:09:34,553 [INFO ]   Training Loss: 0.0255
+2025-04-08 15:09:34,553 [INFO ]   Train Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:09:34,554 [INFO ]   Train Confusion Matrix:
+[[3245698       0]
+ [   2530       0]]
+2025-04-08 15:09:34,554 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:09:46,132 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:09:58,417 [INFO ]   Validation Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:09:58,417 [INFO ]   Validation Confusion Matrix:
+[[964433      0]
+ [  1036      0]]
+2025-04-08 15:09:58,418 [INFO ]   Test Metrics - F1: 0.0000, Precision: 0.0000, Recall: 0.0000
+2025-04-08 15:09:58,418 [INFO ]   Test Confusion Matrix:
+[[861460      0]
+ [  1611      0]]
+2025-04-08 15:09:58,419 [INFO ] --- Epoch 8/100 ---
+2025-04-08 15:10:28,133 [INFO ]   Training Loss: 0.0251
+2025-04-08 15:10:28,134 [INFO ]   Train Metrics - F1: 0.0235, Precision: 0.1649, Recall: 0.0126
+2025-04-08 15:10:28,135 [INFO ]   Train Confusion Matrix:
+[[3245542     162]
+ [   2498      32]]
+2025-04-08 15:10:28,135 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:10:39,838 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:10:52,269 [INFO ]   Validation Metrics - F1: 0.0209, Precision: 0.6471, Recall: 0.0106
+2025-04-08 15:10:52,269 [INFO ]   Validation Confusion Matrix:
+[[964423      6]
+ [  1025     11]]
+2025-04-08 15:10:52,269 [INFO ]   Test Metrics - F1: 0.0135, Precision: 0.5000, Recall: 0.0068
+2025-04-08 15:10:52,269 [INFO ]   Test Confusion Matrix:
+[[861446     11]
+ [  1600     11]]
+2025-04-08 15:10:52,270 [INFO ]   New best validation F1 found: 0.0209
+2025-04-08 15:10:52,270 [INFO ] --- Epoch 9/100 ---
+2025-04-08 15:11:21,530 [INFO ]   Training Loss: 0.0236
+2025-04-08 15:11:21,530 [INFO ]   Train Metrics - F1: 0.1096, Precision: 0.1369, Recall: 0.0913
+2025-04-08 15:11:21,530 [INFO ]   Train Confusion Matrix:
+[[3244287    1456]
+ [   2299     231]]
+2025-04-08 15:11:21,530 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:11:33,147 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:11:45,443 [INFO ]   Validation Metrics - F1: 0.1933, Precision: 0.2224, Recall: 0.1710
+2025-04-08 15:11:45,443 [INFO ]   Validation Confusion Matrix:
+[[963807    619]
+ [   858    177]]
+2025-04-08 15:11:45,444 [INFO ]   Test Metrics - F1: 0.2264, Precision: 0.2916, Recall: 0.1850
+2025-04-08 15:11:45,444 [INFO ]   Test Confusion Matrix:
+[[860723    724]
+ [  1313    298]]
+2025-04-08 15:11:45,444 [INFO ]   New best validation F1 found: 0.1933
+2025-04-08 15:11:45,444 [INFO ] --- Epoch 10/100 ---
+2025-04-08 15:12:15,023 [INFO ]   Training Loss: 0.0233
+2025-04-08 15:12:15,024 [INFO ]   Train Metrics - F1: 0.1488, Precision: 0.1605, Recall: 0.1387
+2025-04-08 15:12:15,024 [INFO ]   Train Confusion Matrix:
+[[3243866    1836]
+ [   2179     351]]
+2025-04-08 15:12:15,025 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:12:26,718 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:12:39,181 [INFO ]   Validation Metrics - F1: 0.2433, Precision: 0.2032, Recall: 0.3031
+2025-04-08 15:12:39,182 [INFO ]   Validation Confusion Matrix:
+[[963197   1231]
+ [   722    314]]
+2025-04-08 15:12:39,183 [INFO ]   Test Metrics - F1: 0.2807, Precision: 0.2466, Recall: 0.3259
+2025-04-08 15:12:39,183 [INFO ]   Test Confusion Matrix:
+[[859858   1604]
+ [  1086    525]]
+2025-04-08 15:12:39,183 [INFO ]   New best validation F1 found: 0.2433
+2025-04-08 15:12:39,184 [INFO ] --- Epoch 11/100 ---
+2025-04-08 15:13:08,801 [INFO ]   Training Loss: 0.0227
+2025-04-08 15:13:08,801 [INFO ]   Train Metrics - F1: 0.1958, Precision: 0.1823, Recall: 0.2115
+2025-04-08 15:13:08,801 [INFO ]   Train Confusion Matrix:
+[[3243301    2399]
+ [   1995     535]]
+2025-04-08 15:13:08,801 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:13:20,543 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:13:33,206 [INFO ]   Validation Metrics - F1: 0.2599, Precision: 0.2500, Recall: 0.2705
+2025-04-08 15:13:33,207 [INFO ]   Validation Confusion Matrix:
+[[963591    840]
+ [   755    280]]
+2025-04-08 15:13:33,208 [INFO ]   Test Metrics - F1: 0.3026, Precision: 0.3048, Recall: 0.3004
+2025-04-08 15:13:33,208 [INFO ]   Test Confusion Matrix:
+[[860357   1104]
+ [  1127    484]]
+2025-04-08 15:13:33,208 [INFO ]   New best validation F1 found: 0.2599
+2025-04-08 15:13:33,208 [INFO ] --- Epoch 12/100 ---
+2025-04-08 15:14:03,013 [INFO ]   Training Loss: 0.0222
+2025-04-08 15:14:03,014 [INFO ]   Train Metrics - F1: 0.2181, Precision: 0.1992, Recall: 0.2411
+2025-04-08 15:14:03,014 [INFO ]   Train Confusion Matrix:
+[[3243264    2453]
+ [   1920     610]]
+2025-04-08 15:14:03,014 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:14:14,593 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:14:27,133 [INFO ]   Validation Metrics - F1: 0.2775, Precision: 0.2904, Recall: 0.2657
+2025-04-08 15:14:27,134 [INFO ]   Validation Confusion Matrix:
+[[963755    672]
+ [   760    275]]
+2025-04-08 15:14:27,135 [INFO ]   Test Metrics - F1: 0.3320, Precision: 0.3338, Recall: 0.3302
+2025-04-08 15:14:27,135 [INFO ]   Test Confusion Matrix:
+[[860396   1062]
+ [  1079    532]]
+2025-04-08 15:14:27,136 [INFO ]   New best validation F1 found: 0.2775
+2025-04-08 15:14:27,136 [INFO ] --- Epoch 13/100 ---
+2025-04-08 15:14:56,857 [INFO ]   Training Loss: 0.0217
+2025-04-08 15:14:56,857 [INFO ]   Train Metrics - F1: 0.2450, Precision: 0.2260, Recall: 0.2676
+2025-04-08 15:14:56,857 [INFO ]   Train Confusion Matrix:
+[[3243383    2319]
+ [   1853     677]]
+2025-04-08 15:14:56,857 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:15:08,488 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:15:20,984 [INFO ]   Validation Metrics - F1: 0.3029, Precision: 0.2971, Recall: 0.3089
+2025-04-08 15:15:20,984 [INFO ]   Validation Confusion Matrix:
+[[963665    757]
+ [   716    320]]
+2025-04-08 15:15:20,984 [INFO ]   Test Metrics - F1: 0.3462, Precision: 0.3162, Recall: 0.3824
+2025-04-08 15:15:20,984 [INFO ]   Test Confusion Matrix:
+[[860106   1332]
+ [   995    616]]
+2025-04-08 15:15:20,985 [INFO ]   New best validation F1 found: 0.3029
+2025-04-08 15:15:20,985 [INFO ] --- Epoch 14/100 ---
+2025-04-08 15:15:50,472 [INFO ]   Training Loss: 0.0211
+2025-04-08 15:15:50,472 [INFO ]   Train Metrics - F1: 0.2508, Precision: 0.2235, Recall: 0.2858
+2025-04-08 15:15:50,473 [INFO ]   Train Confusion Matrix:
+[[3243208    2512]
+ [   1807     723]]
+2025-04-08 15:15:50,473 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:16:02,078 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:16:14,306 [INFO ]   Validation Metrics - F1: 0.2707, Precision: 0.3702, Recall: 0.2133
+2025-04-08 15:16:14,306 [INFO ]   Validation Confusion Matrix:
+[[964053    376]
+ [   815    221]]
+2025-04-08 15:16:14,306 [INFO ]   Test Metrics - F1: 0.2854, Precision: 0.3642, Recall: 0.2346
+2025-04-08 15:16:14,306 [INFO ]   Test Confusion Matrix:
+[[860800    660]
+ [  1233    378]]
+2025-04-08 15:16:14,307 [INFO ] --- Epoch 15/100 ---
+2025-04-08 15:16:43,809 [INFO ]   Training Loss: 0.0213
+2025-04-08 15:16:43,809 [INFO ]   Train Metrics - F1: 0.2556, Precision: 0.2360, Recall: 0.2787
+2025-04-08 15:16:43,809 [INFO ]   Train Confusion Matrix:
+[[3243424    2282]
+ [   1825     705]]
+2025-04-08 15:16:43,809 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:16:55,406 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:17:07,653 [INFO ]   Validation Metrics - F1: 0.2878, Precision: 0.3099, Recall: 0.2686
+2025-04-08 15:17:07,654 [INFO ]   Validation Confusion Matrix:
+[[963816    619]
+ [   757    278]]
+2025-04-08 15:17:07,655 [INFO ]   Test Metrics - F1: 0.3474, Precision: 0.3537, Recall: 0.3414
+2025-04-08 15:17:07,655 [INFO ]   Test Confusion Matrix:
+[[860439   1005]
+ [  1061    550]]
+2025-04-08 15:17:07,655 [INFO ] --- Epoch 16/100 ---
+2025-04-08 15:17:36,924 [INFO ]   Training Loss: 0.0209
+2025-04-08 15:17:36,924 [INFO ]   Train Metrics - F1: 0.2656, Precision: 0.2370, Recall: 0.3020
+2025-04-08 15:17:36,924 [INFO ]   Train Confusion Matrix:
+[[3243257    2460]
+ [   1766     764]]
+2025-04-08 15:17:36,924 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:17:48,537 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:18:00,835 [INFO ]   Validation Metrics - F1: 0.2774, Precision: 0.2116, Recall: 0.4029
+2025-04-08 15:18:00,835 [INFO ]   Validation Confusion Matrix:
+[[962882   1554]
+ [   618    417]]
+2025-04-08 15:18:00,836 [INFO ]   Test Metrics - F1: 0.2893, Precision: 0.2031, Recall: 0.5028
+2025-04-08 15:18:00,836 [INFO ]   Test Confusion Matrix:
+[[858263   3178]
+ [   801    810]]
+2025-04-08 15:18:00,837 [INFO ] --- Epoch 17/100 ---
+2025-04-08 15:18:30,452 [INFO ]   Training Loss: 0.0204
+2025-04-08 15:18:30,452 [INFO ]   Train Metrics - F1: 0.2797, Precision: 0.2581, Recall: 0.3051
+2025-04-08 15:18:30,453 [INFO ]   Train Confusion Matrix:
+[[3243503    2219]
+ [   1758     772]]
+2025-04-08 15:18:30,453 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:18:42,020 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:18:54,265 [INFO ]   Validation Metrics - F1: 0.2897, Precision: 0.2394, Recall: 0.3668
+2025-04-08 15:18:54,266 [INFO ]   Validation Confusion Matrix:
+[[963223   1207]
+ [   656    380]]
+2025-04-08 15:18:54,266 [INFO ]   Test Metrics - F1: 0.3392, Precision: 0.2675, Recall: 0.4637
+2025-04-08 15:18:54,266 [INFO ]   Test Confusion Matrix:
+[[859396   2046]
+ [   864    747]]
+2025-04-08 15:18:54,267 [INFO ] --- Epoch 18/100 ---
+2025-04-08 15:19:23,648 [INFO ]   Training Loss: 0.0200
+2025-04-08 15:19:23,648 [INFO ]   Train Metrics - F1: 0.2846, Precision: 0.2556, Recall: 0.3209
+2025-04-08 15:19:23,649 [INFO ]   Train Confusion Matrix:
+[[3243369    2365]
+ [   1718     812]]
+2025-04-08 15:19:23,649 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:19:35,256 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:19:47,607 [INFO ]   Validation Metrics - F1: 0.2961, Precision: 0.2500, Recall: 0.3629
+2025-04-08 15:19:47,607 [INFO ]   Validation Confusion Matrix:
+[[963309   1128]
+ [   660    376]]
+2025-04-08 15:19:47,608 [INFO ]   Test Metrics - F1: 0.3213, Precision: 0.2470, Recall: 0.4593
+2025-04-08 15:19:47,608 [INFO ]   Test Confusion Matrix:
+[[859179   2256]
+ [   871    740]]
+2025-04-08 15:19:47,609 [INFO ] --- Epoch 19/100 ---
+2025-04-08 15:20:17,320 [INFO ]   Training Loss: 0.0197
+2025-04-08 15:20:17,320 [INFO ]   Train Metrics - F1: 0.2875, Precision: 0.2544, Recall: 0.3304
+2025-04-08 15:20:17,320 [INFO ]   Train Confusion Matrix:
+[[3243277    2450]
+ [   1694     836]]
+2025-04-08 15:20:17,320 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:20:29,025 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:20:41,360 [INFO ]   Validation Metrics - F1: 0.3247, Precision: 0.2923, Recall: 0.3652
+2025-04-08 15:20:41,360 [INFO ]   Validation Confusion Matrix:
+[[963512    915]
+ [   657    378]]
+2025-04-08 15:20:41,360 [INFO ]   Test Metrics - F1: 0.3475, Precision: 0.2863, Recall: 0.4420
+2025-04-08 15:20:41,360 [INFO ]   Test Confusion Matrix:
+[[859678   1775]
+ [   899    712]]
+2025-04-08 15:20:41,361 [INFO ]   New best validation F1 found: 0.3247
+2025-04-08 15:20:41,361 [INFO ] --- Epoch 20/100 ---
+2025-04-08 15:21:10,679 [INFO ]   Training Loss: 0.0193
+2025-04-08 15:21:10,679 [INFO ]   Train Metrics - F1: 0.3090, Precision: 0.2875, Recall: 0.3340
+2025-04-08 15:21:10,680 [INFO ]   Train Confusion Matrix:
+[[3243613    2094]
+ [   1685     845]]
+2025-04-08 15:21:10,680 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:21:22,288 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:21:34,604 [INFO ]   Validation Metrics - F1: 0.3088, Precision: 0.2554, Recall: 0.3903
+2025-04-08 15:21:34,605 [INFO ]   Validation Confusion Matrix:
+[[963250   1178]
+ [   631    404]]
+2025-04-08 15:21:34,605 [INFO ]   Test Metrics - F1: 0.2879, Precision: 0.2067, Recall: 0.4742
+2025-04-08 15:21:34,606 [INFO ]   Test Confusion Matrix:
+[[858508   2933]
+ [   847    764]]
+2025-04-08 15:21:34,606 [INFO ] --- Epoch 21/100 ---
+2025-04-08 15:22:03,646 [INFO ]   Training Loss: 0.0190
+2025-04-08 15:22:03,646 [INFO ]   Train Metrics - F1: 0.3183, Precision: 0.2818, Recall: 0.3656
+2025-04-08 15:22:03,647 [INFO ]   Train Confusion Matrix:
+[[3243380    2358]
+ [   1605     925]]
+2025-04-08 15:22:03,647 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:22:15,232 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:22:27,501 [INFO ]   Validation Metrics - F1: 0.3343, Precision: 0.3237, Recall: 0.3456
+2025-04-08 15:22:27,502 [INFO ]   Validation Confusion Matrix:
+[[963681    748]
+ [   678    358]]
+2025-04-08 15:22:27,502 [INFO ]   Test Metrics - F1: 0.3538, Precision: 0.3117, Recall: 0.4091
+2025-04-08 15:22:27,502 [INFO ]   Test Confusion Matrix:
+[[859985   1455]
+ [   952    659]]
+2025-04-08 15:22:27,503 [INFO ]   New best validation F1 found: 0.3343
+2025-04-08 15:22:27,503 [INFO ] --- Epoch 22/100 ---
+2025-04-08 15:22:56,511 [INFO ]   Training Loss: 0.0194
+2025-04-08 15:22:56,512 [INFO ]   Train Metrics - F1: 0.3091, Precision: 0.2828, Recall: 0.3407
+2025-04-08 15:22:56,512 [INFO ]   Train Confusion Matrix:
+[[3243534    2186]
+ [   1668     862]]
+2025-04-08 15:22:56,512 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:23:08,087 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:23:20,396 [INFO ]   Validation Metrics - F1: 0.3247, Precision: 0.2977, Recall: 0.3571
+2025-04-08 15:23:20,396 [INFO ]   Validation Confusion Matrix:
+[[963559    873]
+ [   666    370]]
+2025-04-08 15:23:20,397 [INFO ]   Test Metrics - F1: 0.3325, Precision: 0.2708, Recall: 0.4308
+2025-04-08 15:23:20,397 [INFO ]   Test Confusion Matrix:
+[[859577   1869]
+ [   917    694]]
+2025-04-08 15:23:20,397 [INFO ] --- Epoch 23/100 ---
+2025-04-08 15:23:49,511 [INFO ]   Training Loss: 0.0185
+2025-04-08 15:23:49,512 [INFO ]   Train Metrics - F1: 0.3318, Precision: 0.3054, Recall: 0.3632
+2025-04-08 15:23:49,513 [INFO ]   Train Confusion Matrix:
+[[3243647    2090]
+ [   1611     919]]
+2025-04-08 15:23:49,513 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:24:01,147 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:24:13,478 [INFO ]   Validation Metrics - F1: 0.3401, Precision: 0.3471, Recall: 0.3333
+2025-04-08 15:24:13,478 [INFO ]   Validation Confusion Matrix:
+[[963786    649]
+ [   690    345]]
+2025-04-08 15:24:13,478 [INFO ]   Test Metrics - F1: 0.3441, Precision: 0.3061, Recall: 0.3929
+2025-04-08 15:24:13,478 [INFO ]   Test Confusion Matrix:
+[[860028   1435]
+ [   978    633]]
+2025-04-08 15:24:13,479 [INFO ]   New best validation F1 found: 0.3401
+2025-04-08 15:24:13,479 [INFO ] --- Epoch 24/100 ---
+2025-04-08 15:24:42,763 [INFO ]   Training Loss: 0.0182
+2025-04-08 15:24:42,764 [INFO ]   Train Metrics - F1: 0.3409, Precision: 0.3074, Recall: 0.3826
+2025-04-08 15:24:42,764 [INFO ]   Train Confusion Matrix:
+[[3243523    2181]
+ [   1562     968]]
+2025-04-08 15:24:42,764 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:24:54,346 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:25:06,643 [INFO ]   Validation Metrics - F1: 0.3289, Precision: 0.2762, Recall: 0.4064
+2025-04-08 15:25:06,643 [INFO ]   Validation Confusion Matrix:
+[[963334   1103]
+ [   615    421]]
+2025-04-08 15:25:06,644 [INFO ]   Test Metrics - F1: 0.3421, Precision: 0.2599, Recall: 0.5003
+2025-04-08 15:25:06,644 [INFO ]   Test Confusion Matrix:
+[[859148   2295]
+ [   805    806]]
+2025-04-08 15:25:06,645 [INFO ] --- Epoch 25/100 ---
+2025-04-08 15:25:36,264 [INFO ]   Training Loss: 0.0184
+2025-04-08 15:25:36,265 [INFO ]   Train Metrics - F1: 0.3344, Precision: 0.2953, Recall: 0.3854
+2025-04-08 15:25:36,265 [INFO ]   Train Confusion Matrix:
+[[3243390    2327]
+ [   1555     975]]
+2025-04-08 15:25:36,265 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:25:47,689 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:25:59,787 [INFO ]   Validation Metrics - F1: 0.3382, Precision: 0.2984, Recall: 0.3903
+2025-04-08 15:25:59,787 [INFO ]   Validation Confusion Matrix:
+[[963482    950]
+ [   631    404]]
+2025-04-08 15:25:59,788 [INFO ]   Test Metrics - F1: 0.3667, Precision: 0.2974, Recall: 0.4780
+2025-04-08 15:25:59,788 [INFO ]   Test Confusion Matrix:
+[[859623   1819]
+ [   841    770]]
+2025-04-08 15:25:59,788 [INFO ] --- Epoch 26/100 ---
+2025-04-08 15:26:28,527 [INFO ]   Training Loss: 0.0180
+2025-04-08 15:26:28,527 [INFO ]   Train Metrics - F1: 0.3436, Precision: 0.3082, Recall: 0.3881
+2025-04-08 15:26:28,527 [INFO ]   Train Confusion Matrix:
+[[3243502    2204]
+ [   1548     982]]
+2025-04-08 15:26:28,528 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:26:40,019 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:26:52,185 [INFO ]   Validation Metrics - F1: 0.3291, Precision: 0.2723, Recall: 0.4160
+2025-04-08 15:26:52,185 [INFO ]   Validation Confusion Matrix:
+[[963275   1152]
+ [   605    431]]
+2025-04-08 15:26:52,186 [INFO ]   Test Metrics - F1: 0.3388, Precision: 0.2520, Recall: 0.5171
+2025-04-08 15:26:52,186 [INFO ]   Test Confusion Matrix:
+[[858994   2473]
+ [   778    833]]
+2025-04-08 15:26:52,186 [INFO ] --- Epoch 27/100 ---
+2025-04-08 15:27:21,173 [INFO ]   Training Loss: 0.0177
+2025-04-08 15:27:21,174 [INFO ]   Train Metrics - F1: 0.3531, Precision: 0.3146, Recall: 0.4024
+2025-04-08 15:27:21,174 [INFO ]   Train Confusion Matrix:
+[[3243512    2218]
+ [   1512    1018]]
+2025-04-08 15:27:21,174 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:27:32,676 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:27:44,803 [INFO ]   Validation Metrics - F1: 0.3134, Precision: 0.2642, Recall: 0.3851
+2025-04-08 15:27:44,804 [INFO ]   Validation Confusion Matrix:
+[[963320   1111]
+ [   637    399]]
+2025-04-08 15:27:44,804 [INFO ]   Test Metrics - F1: 0.2900, Precision: 0.2131, Recall: 0.4538
+2025-04-08 15:27:44,804 [INFO ]   Test Confusion Matrix:
+[[858768   2699]
+ [   880    731]]
+2025-04-08 15:27:44,805 [INFO ] --- Epoch 28/100 ---
+2025-04-08 15:28:13,453 [INFO ]   Training Loss: 0.0184
+2025-04-08 15:28:13,454 [INFO ]   Train Metrics - F1: 0.3294, Precision: 0.2911, Recall: 0.3794
+2025-04-08 15:28:13,454 [INFO ]   Train Confusion Matrix:
+[[3243396    2338]
+ [   1570     960]]
+2025-04-08 15:28:13,454 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:28:24,926 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:28:37,137 [INFO ]   Validation Metrics - F1: 0.3120, Precision: 0.2697, Recall: 0.3700
+2025-04-08 15:28:37,137 [INFO ]   Validation Confusion Matrix:
+[[963394   1037]
+ [   652    383]]
+2025-04-08 15:28:37,137 [INFO ]   Test Metrics - F1: 0.3321, Precision: 0.2711, Recall: 0.4283
+2025-04-08 15:28:37,137 [INFO ]   Test Confusion Matrix:
+[[859586   1855]
+ [   921    690]]
+2025-04-08 15:28:37,138 [INFO ] --- Epoch 29/100 ---
+2025-04-08 15:29:06,284 [INFO ]   Training Loss: 0.0174
+2025-04-08 15:29:06,284 [INFO ]   Train Metrics - F1: 0.3680, Precision: 0.3366, Recall: 0.4059
+2025-04-08 15:29:06,284 [INFO ]   Train Confusion Matrix:
+[[3243683    2024]
+ [   1503    1027]]
+2025-04-08 15:29:06,285 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:29:17,776 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:29:30,032 [INFO ]   Validation Metrics - F1: 0.3617, Precision: 0.3757, Recall: 0.3488
+2025-04-08 15:29:30,033 [INFO ]   Validation Confusion Matrix:
+[[963835    600]
+ [   674    361]]
+2025-04-08 15:29:30,033 [INFO ]   Test Metrics - F1: 0.3637, Precision: 0.3367, Recall: 0.3954
+2025-04-08 15:29:30,033 [INFO ]   Test Confusion Matrix:
+[[860185   1255]
+ [   974    637]]
+2025-04-08 15:29:30,034 [INFO ]   New best validation F1 found: 0.3617
+2025-04-08 15:29:30,034 [INFO ] --- Epoch 30/100 ---
+2025-04-08 15:29:59,291 [INFO ]   Training Loss: 0.0173
+2025-04-08 15:29:59,291 [INFO ]   Train Metrics - F1: 0.3742, Precision: 0.3459, Recall: 0.4075
+2025-04-08 15:29:59,292 [INFO ]   Train Confusion Matrix:
+[[3243785    1950]
+ [   1499    1031]]
+2025-04-08 15:29:59,292 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:30:10,768 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:30:22,973 [INFO ]   Validation Metrics - F1: 0.3632, Precision: 0.3792, Recall: 0.3485
+2025-04-08 15:30:22,973 [INFO ]   Validation Confusion Matrix:
+[[963846    591]
+ [   675    361]]
+2025-04-08 15:30:22,974 [INFO ]   Test Metrics - F1: 0.3202, Precision: 0.2596, Recall: 0.4178
+2025-04-08 15:30:22,974 [INFO ]   Test Confusion Matrix:
+[[859506   1919]
+ [   938    673]]
+2025-04-08 15:30:22,975 [INFO ]   New best validation F1 found: 0.3632
+2025-04-08 15:30:22,975 [INFO ] --- Epoch 31/100 ---
+2025-04-08 15:30:52,089 [INFO ]   Training Loss: 0.0171
+2025-04-08 15:30:52,090 [INFO ]   Train Metrics - F1: 0.3809, Precision: 0.3500, Recall: 0.4178
+2025-04-08 15:30:52,090 [INFO ]   Train Confusion Matrix:
+[[3243751    1963]
+ [   1473    1057]]
+2025-04-08 15:30:52,090 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:31:03,534 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:31:15,719 [INFO ]   Validation Metrics - F1: 0.3390, Precision: 0.2814, Recall: 0.4261
+2025-04-08 15:31:15,719 [INFO ]   Validation Confusion Matrix:
+[[963304   1126]
+ [   594    441]]
+2025-04-08 15:31:15,720 [INFO ]   Test Metrics - F1: 0.3114, Precision: 0.2239, Recall: 0.5115
+2025-04-08 15:31:15,720 [INFO ]   Test Confusion Matrix:
+[[858594   2857]
+ [   787    824]]
+2025-04-08 15:31:15,720 [INFO ] --- Epoch 32/100 ---
+2025-04-08 15:31:44,642 [INFO ]   Training Loss: 0.0168
+2025-04-08 15:31:44,642 [INFO ]   Train Metrics - F1: 0.3868, Precision: 0.3567, Recall: 0.4225
+2025-04-08 15:31:44,643 [INFO ]   Train Confusion Matrix:
+[[3243797    1928]
+ [   1461    1069]]
+2025-04-08 15:31:44,643 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:31:56,113 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:32:08,255 [INFO ]   Validation Metrics - F1: 0.3534, Precision: 0.3115, Recall: 0.4083
+2025-04-08 15:32:08,256 [INFO ]   Validation Confusion Matrix:
+[[963496    935]
+ [   613    423]]
+2025-04-08 15:32:08,256 [INFO ]   Test Metrics - F1: 0.3343, Precision: 0.2523, Recall: 0.4953
+2025-04-08 15:32:08,256 [INFO ]   Test Confusion Matrix:
+[[859090   2365]
+ [   813    798]]
+2025-04-08 15:32:08,257 [INFO ] --- Epoch 33/100 ---
+2025-04-08 15:32:37,205 [INFO ]   Training Loss: 0.0171
+2025-04-08 15:32:37,206 [INFO ]   Train Metrics - F1: 0.3807, Precision: 0.3494, Recall: 0.4182
+2025-04-08 15:32:37,206 [INFO ]   Train Confusion Matrix:
+[[3243741    1970]
+ [   1472    1058]]
+2025-04-08 15:32:37,207 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:32:48,635 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:33:00,704 [INFO ]   Validation Metrics - F1: 0.3308, Precision: 0.2674, Recall: 0.4334
+2025-04-08 15:33:00,705 [INFO ]   Validation Confusion Matrix:
+[[963213   1230]
+ [   587    449]]
+2025-04-08 15:33:00,705 [INFO ]   Test Metrics - F1: 0.2307, Precision: 0.1510, Recall: 0.4891
+2025-04-08 15:33:00,705 [INFO ]   Test Confusion Matrix:
+[[857037   4431]
+ [   823    788]]
+2025-04-08 15:33:00,705 [INFO ] --- Epoch 34/100 ---
+2025-04-08 15:33:29,490 [INFO ]   Training Loss: 0.0182
+2025-04-08 15:33:29,491 [INFO ]   Train Metrics - F1: 0.3590, Precision: 0.3288, Recall: 0.3953
+2025-04-08 15:33:29,491 [INFO ]   Train Confusion Matrix:
+[[3243682    2041]
+ [   1530    1000]]
+2025-04-08 15:33:29,492 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:33:40,924 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:33:53,086 [INFO ]   Validation Metrics - F1: 0.3764, Precision: 0.4134, Recall: 0.3456
+2025-04-08 15:33:53,086 [INFO ]   Validation Confusion Matrix:
+[[963922    508]
+ [   678    358]]
+2025-04-08 15:33:53,087 [INFO ]   Test Metrics - F1: 0.3628, Precision: 0.3408, Recall: 0.3880
+2025-04-08 15:33:53,087 [INFO ]   Test Confusion Matrix:
+[[860248   1209]
+ [   986    625]]
+2025-04-08 15:33:53,087 [INFO ]   New best validation F1 found: 0.3764
+2025-04-08 15:33:53,087 [INFO ] --- Epoch 35/100 ---
+2025-04-08 15:34:21,794 [INFO ]   Training Loss: 0.0169
+2025-04-08 15:34:21,794 [INFO ]   Train Metrics - F1: 0.3852, Precision: 0.3517, Recall: 0.4257
+2025-04-08 15:34:21,795 [INFO ]   Train Confusion Matrix:
+[[3243720    1985]
+ [   1453    1077]]
+2025-04-08 15:34:21,795 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:34:33,332 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:34:45,702 [INFO ]   Validation Metrics - F1: 0.3758, Precision: 0.3976, Recall: 0.3562
+2025-04-08 15:34:45,702 [INFO ]   Validation Confusion Matrix:
+[[963881    559]
+ [   667    369]]
+2025-04-08 15:34:45,703 [INFO ]   Test Metrics - F1: 0.3410, Precision: 0.2981, Recall: 0.3985
+2025-04-08 15:34:45,703 [INFO ]   Test Confusion Matrix:
+[[859928   1512]
+ [   969    642]]
+2025-04-08 15:34:45,703 [INFO ] --- Epoch 36/100 ---
+2025-04-08 15:35:14,583 [INFO ]   Training Loss: 0.0166
+2025-04-08 15:35:14,583 [INFO ]   Train Metrics - F1: 0.3983, Precision: 0.3742, Recall: 0.4257
+2025-04-08 15:35:14,583 [INFO ]   Train Confusion Matrix:
+[[3243942    1801]
+ [   1453    1077]]
+2025-04-08 15:35:14,584 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:35:26,055 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:35:38,238 [INFO ]   Validation Metrics - F1: 0.3810, Precision: 0.3858, Recall: 0.3764
+2025-04-08 15:35:38,238 [INFO ]   Validation Confusion Matrix:
+[[963808    621]
+ [   646    390]]
+2025-04-08 15:35:38,238 [INFO ]   Test Metrics - F1: 0.3117, Precision: 0.2549, Recall: 0.4010
+2025-04-08 15:35:38,239 [INFO ]   Test Confusion Matrix:
+[[859556   1888]
+ [   965    646]]
+2025-04-08 15:35:38,239 [INFO ]   New best validation F1 found: 0.3810
+2025-04-08 15:35:38,239 [INFO ] --- Epoch 37/100 ---
+2025-04-08 15:36:07,139 [INFO ]   Training Loss: 0.0167
+2025-04-08 15:36:07,139 [INFO ]   Train Metrics - F1: 0.3904, Precision: 0.3588, Recall: 0.4281
+2025-04-08 15:36:07,140 [INFO ]   Train Confusion Matrix:
+[[3243768    1935]
+ [   1447    1083]]
+2025-04-08 15:36:07,140 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:36:18,721 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:36:30,828 [INFO ]   Validation Metrics - F1: 0.3623, Precision: 0.4400, Recall: 0.3079
+2025-04-08 15:36:30,828 [INFO ]   Validation Confusion Matrix:
+[[964025    406]
+ [   717    319]]
+2025-04-08 15:36:30,829 [INFO ]   Test Metrics - F1: 0.3792, Precision: 0.3909, Recall: 0.3681
+2025-04-08 15:36:30,829 [INFO ]   Test Confusion Matrix:
+[[860502    924]
+ [  1018    593]]
+2025-04-08 15:36:30,829 [INFO ] --- Epoch 38/100 ---
+2025-04-08 15:36:59,689 [INFO ]   Training Loss: 0.0166
+2025-04-08 15:36:59,689 [INFO ]   Train Metrics - F1: 0.3888, Precision: 0.3559, Recall: 0.4285
+2025-04-08 15:36:59,690 [INFO ]   Train Confusion Matrix:
+[[3243777    1962]
+ [   1446    1084]]
+2025-04-08 15:36:59,690 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:37:11,307 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:37:23,592 [INFO ]   Validation Metrics - F1: 0.3855, Precision: 0.4086, Recall: 0.3649
+2025-04-08 15:37:23,593 [INFO ]   Validation Confusion Matrix:
+[[963881    547]
+ [   658    378]]
+2025-04-08 15:37:23,593 [INFO ]   Test Metrics - F1: 0.3233, Precision: 0.2613, Recall: 0.4240
+2025-04-08 15:37:23,594 [INFO ]   Test Confusion Matrix:
+[[859513   1931]
+ [   928    683]]
+2025-04-08 15:37:23,594 [INFO ]   New best validation F1 found: 0.3855
+2025-04-08 15:37:23,594 [INFO ] --- Epoch 39/100 ---
+2025-04-08 15:37:52,515 [INFO ]   Training Loss: 0.0165
+2025-04-08 15:37:52,516 [INFO ]   Train Metrics - F1: 0.3961, Precision: 0.3619, Recall: 0.4375
+2025-04-08 15:37:52,516 [INFO ]   Train Confusion Matrix:
+[[3243766    1952]
+ [   1423    1107]]
+2025-04-08 15:37:52,516 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:38:04,012 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:38:16,205 [INFO ]   Validation Metrics - F1: 0.3731, Precision: 0.3716, Recall: 0.3745
+2025-04-08 15:38:16,205 [INFO ]   Validation Confusion Matrix:
+[[963774    656]
+ [   648    388]]
+2025-04-08 15:38:16,206 [INFO ]   Test Metrics - F1: 0.3730, Precision: 0.3233, Recall: 0.4407
+2025-04-08 15:38:16,206 [INFO ]   Test Confusion Matrix:
+[[859974   1486]
+ [   901    710]]
+2025-04-08 15:38:16,206 [INFO ] --- Epoch 40/100 ---
+2025-04-08 15:38:44,944 [INFO ]   Training Loss: 0.0161
+2025-04-08 15:38:44,944 [INFO ]   Train Metrics - F1: 0.4059, Precision: 0.3753, Recall: 0.4419
+2025-04-08 15:38:44,945 [INFO ]   Train Confusion Matrix:
+[[3243861    1861]
+ [   1412    1118]]
+2025-04-08 15:38:44,945 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:38:56,353 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:39:08,571 [INFO ]   Validation Metrics - F1: 0.2765, Precision: 0.1916, Recall: 0.4961
+2025-04-08 15:39:08,572 [INFO ]   Validation Confusion Matrix:
+[[962276   2168]
+ [   522    514]]
+2025-04-08 15:39:08,573 [INFO ]   Test Metrics - F1: 0.2091, Precision: 0.1277, Recall: 0.5767
+2025-04-08 15:39:08,573 [INFO ]   Test Confusion Matrix:
+[[855113   6344]
+ [   682    929]]
+2025-04-08 15:39:08,573 [INFO ] --- Epoch 41/100 ---
+2025-04-08 15:39:37,527 [INFO ]   Training Loss: 0.0174
+2025-04-08 15:39:37,527 [INFO ]   Train Metrics - F1: 0.3593, Precision: 0.3285, Recall: 0.3964
+2025-04-08 15:39:37,527 [INFO ]   Train Confusion Matrix:
+[[3243663    2050]
+ [   1527    1003]]
+2025-04-08 15:39:37,528 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:39:49,045 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:40:01,196 [INFO ]   Validation Metrics - F1: 0.3545, Precision: 0.3153, Recall: 0.4048
+2025-04-08 15:40:01,198 [INFO ]   Validation Confusion Matrix:
+[[963525    910]
+ [   616    419]]
+2025-04-08 15:40:01,198 [INFO ]   Test Metrics - F1: 0.3326, Precision: 0.2559, Recall: 0.4749
+2025-04-08 15:40:01,198 [INFO ]   Test Confusion Matrix:
+[[859223   2224]
+ [   846    765]]
+2025-04-08 15:40:01,198 [INFO ] --- Epoch 42/100 ---
+2025-04-08 15:40:30,061 [INFO ]   Training Loss: 0.0163
+2025-04-08 15:40:30,061 [INFO ]   Train Metrics - F1: 0.4104, Precision: 0.3849, Recall: 0.4395
+2025-04-08 15:40:30,061 [INFO ]   Train Confusion Matrix:
+[[3243944    1777]
+ [   1418    1112]]
+2025-04-08 15:40:30,061 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:40:41,620 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:40:54,018 [INFO ]   Validation Metrics - F1: 0.3502, Precision: 0.2999, Recall: 0.4208
+2025-04-08 15:40:54,019 [INFO ]   Validation Confusion Matrix:
+[[963413   1018]
+ [   600    436]]
+2025-04-08 15:40:54,019 [INFO ]   Test Metrics - F1: 0.3082, Precision: 0.2214, Recall: 0.5071
+2025-04-08 15:40:54,019 [INFO ]   Test Confusion Matrix:
+[[858579   2873]
+ [   794    817]]
+2025-04-08 15:40:54,020 [INFO ] --- Epoch 43/100 ---
+2025-04-08 15:41:22,928 [INFO ]   Training Loss: 0.0163
+2025-04-08 15:41:22,928 [INFO ]   Train Metrics - F1: 0.3978, Precision: 0.3641, Recall: 0.4383
+2025-04-08 15:41:22,928 [INFO ]   Train Confusion Matrix:
+[[3243770    1937]
+ [   1421    1109]]
+2025-04-08 15:41:22,928 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:41:34,445 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:41:46,668 [INFO ]   Validation Metrics - F1: 0.3367, Precision: 0.2724, Recall: 0.4406
+2025-04-08 15:41:46,670 [INFO ]   Validation Confusion Matrix:
+[[963212   1218]
+ [   579    456]]
+2025-04-08 15:41:46,670 [INFO ]   Test Metrics - F1: 0.2919, Precision: 0.2048, Recall: 0.5078
+2025-04-08 15:41:46,670 [INFO ]   Test Confusion Matrix:
+[[858269   3176]
+ [   793    818]]
+2025-04-08 15:41:46,671 [INFO ] --- Epoch 44/100 ---
+2025-04-08 15:42:15,516 [INFO ]   Training Loss: 0.0168
+2025-04-08 15:42:15,516 [INFO ]   Train Metrics - F1: 0.3669, Precision: 0.3282, Recall: 0.4158
+2025-04-08 15:42:15,516 [INFO ]   Train Confusion Matrix:
+[[3243555    2153]
+ [   1478    1052]]
+2025-04-08 15:42:15,517 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:42:27,036 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:42:39,216 [INFO ]   Validation Metrics - F1: 0.3929, Precision: 0.3634, Recall: 0.4276
+2025-04-08 15:42:39,216 [INFO ]   Validation Confusion Matrix:
+[[963661    776]
+ [   593    443]]
+2025-04-08 15:42:39,216 [INFO ]   Test Metrics - F1: 0.3232, Precision: 0.2432, Recall: 0.4817
+2025-04-08 15:42:39,217 [INFO ]   Test Confusion Matrix:
+[[859015   2415]
+ [   835    776]]
+2025-04-08 15:42:39,217 [INFO ]   New best validation F1 found: 0.3929
+2025-04-08 15:42:39,217 [INFO ] --- Epoch 45/100 ---
+2025-04-08 15:43:08,130 [INFO ]   Training Loss: 0.0161
+2025-04-08 15:43:08,130 [INFO ]   Train Metrics - F1: 0.3912, Precision: 0.3555, Recall: 0.4348
+2025-04-08 15:43:08,131 [INFO ]   Train Confusion Matrix:
+[[3243709    1994]
+ [   1430    1100]]
+2025-04-08 15:43:08,131 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:43:19,626 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:43:31,835 [INFO ]   Validation Metrics - F1: 0.3941, Precision: 0.4194, Recall: 0.3716
+2025-04-08 15:43:31,835 [INFO ]   Validation Confusion Matrix:
+[[963904    533]
+ [   651    385]]
+2025-04-08 15:43:31,836 [INFO ]   Test Metrics - F1: 0.3288, Precision: 0.2659, Recall: 0.4308
+2025-04-08 15:43:31,836 [INFO ]   Test Confusion Matrix:
+[[859556   1916]
+ [   917    694]]
+2025-04-08 15:43:31,836 [INFO ]   New best validation F1 found: 0.3941
+2025-04-08 15:43:31,837 [INFO ] --- Epoch 46/100 ---
+2025-04-08 15:44:00,526 [INFO ]   Training Loss: 0.0155
+2025-04-08 15:44:00,526 [INFO ]   Train Metrics - F1: 0.4160, Precision: 0.3810, Recall: 0.4581
+2025-04-08 15:44:00,527 [INFO ]   Train Confusion Matrix:
+[[3243835    1883]
+ [   1371    1159]]
+2025-04-08 15:44:00,527 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:44:11,930 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:44:24,062 [INFO ]   Validation Metrics - F1: 0.3890, Precision: 0.4216, Recall: 0.3610
+2025-04-08 15:44:24,063 [INFO ]   Validation Confusion Matrix:
+[[963913    513]
+ [   662    374]]
+2025-04-08 15:44:24,063 [INFO ]   Test Metrics - F1: 0.3829, Precision: 0.3475, Recall: 0.4264
+2025-04-08 15:44:24,064 [INFO ]   Test Confusion Matrix:
+[[860149   1290]
+ [   924    687]]
+2025-04-08 15:44:24,064 [INFO ] --- Epoch 47/100 ---
+2025-04-08 15:44:52,732 [INFO ]   Training Loss: 0.0154
+2025-04-08 15:44:52,733 [INFO ]   Train Metrics - F1: 0.4305, Precision: 0.3936, Recall: 0.4751
+2025-04-08 15:44:52,733 [INFO ]   Train Confusion Matrix:
+[[3243866    1852]
+ [   1328    1202]]
+2025-04-08 15:44:52,734 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:45:04,112 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:45:16,173 [INFO ]   Validation Metrics - F1: 0.3412, Precision: 0.3062, Recall: 0.3851
+2025-04-08 15:45:16,173 [INFO ]   Validation Confusion Matrix:
+[[963531    904]
+ [   637    399]]
+2025-04-08 15:45:16,173 [INFO ]   Test Metrics - F1: 0.3002, Precision: 0.2257, Recall: 0.4482
+2025-04-08 15:45:16,173 [INFO ]   Test Confusion Matrix:
+[[858955   2477]
+ [   889    722]]
+2025-04-08 15:45:16,174 [INFO ] --- Epoch 48/100 ---
+2025-04-08 15:45:44,802 [INFO ]   Training Loss: 0.0154
+2025-04-08 15:45:44,803 [INFO ]   Train Metrics - F1: 0.4263, Precision: 0.3863, Recall: 0.4755
+2025-04-08 15:45:44,804 [INFO ]   Train Confusion Matrix:
+[[3243780    1911]
+ [   1327    1203]]
+2025-04-08 15:45:44,804 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:45:56,207 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:46:08,205 [INFO ]   Validation Metrics - F1: 0.3644, Precision: 0.3336, Recall: 0.4015
+2025-04-08 15:46:08,205 [INFO ]   Validation Confusion Matrix:
+[[963604    831]
+ [   620    416]]
+2025-04-08 15:46:08,206 [INFO ]   Test Metrics - F1: 0.3395, Precision: 0.2607, Recall: 0.4867
+2025-04-08 15:46:08,206 [INFO ]   Test Confusion Matrix:
+[[859246   2223]
+ [   827    784]]
+2025-04-08 15:46:08,206 [INFO ] --- Epoch 49/100 ---
+2025-04-08 15:46:36,815 [INFO ]   Training Loss: 0.0152
+2025-04-08 15:46:36,815 [INFO ]   Train Metrics - F1: 0.4282, Precision: 0.3868, Recall: 0.4794
+2025-04-08 15:46:36,816 [INFO ]   Train Confusion Matrix:
+[[3243767    1923]
+ [   1317    1213]]
+2025-04-08 15:46:36,816 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:46:48,222 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:47:00,229 [INFO ]   Validation Metrics - F1: 0.3588, Precision: 0.3320, Recall: 0.3903
+2025-04-08 15:47:00,230 [INFO ]   Validation Confusion Matrix:
+[[963617    813]
+ [   631    404]]
+2025-04-08 15:47:00,230 [INFO ]   Test Metrics - F1: 0.3218, Precision: 0.2499, Recall: 0.4519
+2025-04-08 15:47:00,230 [INFO ]   Test Confusion Matrix:
+[[859257   2185]
+ [   883    728]]
+2025-04-08 15:47:00,231 [INFO ] --- Epoch 50/100 ---
+2025-04-08 15:47:28,843 [INFO ]   Training Loss: 0.0153
+2025-04-08 15:47:28,843 [INFO ]   Train Metrics - F1: 0.4251, Precision: 0.3786, Recall: 0.4846
+2025-04-08 15:47:28,843 [INFO ]   Train Confusion Matrix:
+[[3243698    2012]
+ [   1304    1226]]
+2025-04-08 15:47:28,844 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:47:40,195 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:47:52,196 [INFO ]   Validation Metrics - F1: 0.3693, Precision: 0.3339, Recall: 0.4131
+2025-04-08 15:47:52,197 [INFO ]   Validation Confusion Matrix:
+[[963588    854]
+ [   608    428]]
+2025-04-08 15:47:52,198 [INFO ]   Test Metrics - F1: 0.3262, Precision: 0.2411, Recall: 0.5040
+2025-04-08 15:47:52,198 [INFO ]   Test Confusion Matrix:
+[[858902   2556]
+ [   799    812]]
+2025-04-08 15:47:52,198 [INFO ] --- Epoch 51/100 ---
+2025-04-08 15:48:20,810 [INFO ]   Training Loss: 0.0152
+2025-04-08 15:48:20,811 [INFO ]   Train Metrics - F1: 0.4172, Precision: 0.3686, Recall: 0.4806
+2025-04-08 15:48:20,811 [INFO ]   Train Confusion Matrix:
+[[3243633    2083]
+ [   1314    1216]]
+2025-04-08 15:48:20,811 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:48:32,199 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:48:44,291 [INFO ]   Validation Metrics - F1: 0.3436, Precision: 0.2880, Recall: 0.4257
+2025-04-08 15:48:44,293 [INFO ]   Validation Confusion Matrix:
+[[963335   1090]
+ [   595    441]]
+2025-04-08 15:48:44,293 [INFO ]   Test Metrics - F1: 0.3026, Precision: 0.2186, Recall: 0.4916
+2025-04-08 15:48:44,294 [INFO ]   Test Confusion Matrix:
+[[858625   2831]
+ [   819    792]]
+2025-04-08 15:48:44,294 [INFO ] --- Epoch 52/100 ---
+2025-04-08 15:49:12,842 [INFO ]   Training Loss: 0.0155
+2025-04-08 15:49:12,842 [INFO ]   Train Metrics - F1: 0.4031, Precision: 0.3480, Recall: 0.4791
+2025-04-08 15:49:12,843 [INFO ]   Train Confusion Matrix:
+[[3243449    2271]
+ [   1318    1212]]
+2025-04-08 15:49:12,843 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:49:24,233 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:49:36,329 [INFO ]   Validation Metrics - F1: 0.3028, Precision: 0.2274, Recall: 0.4527
+2025-04-08 15:49:36,330 [INFO ]   Validation Confusion Matrix:
+[[962837   1593]
+ [   567    469]]
+2025-04-08 15:49:36,331 [INFO ]   Test Metrics - F1: 0.2942, Precision: 0.2009, Recall: 0.5493
+2025-04-08 15:49:36,331 [INFO ]   Test Confusion Matrix:
+[[857914   3521]
+ [   726    885]]
+2025-04-08 15:49:36,331 [INFO ] --- Epoch 53/100 ---
+2025-04-08 15:50:04,889 [INFO ]   Training Loss: 0.0169
+2025-04-08 15:50:04,889 [INFO ]   Train Metrics - F1: 0.3689, Precision: 0.3248, Recall: 0.4269
+2025-04-08 15:50:04,890 [INFO ]   Train Confusion Matrix:
+[[3243477    2245]
+ [   1450    1080]]
+2025-04-08 15:50:04,890 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:50:16,221 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:50:28,236 [INFO ]   Validation Metrics - F1: 0.3624, Precision: 0.3485, Recall: 0.3774
+2025-04-08 15:50:28,237 [INFO ]   Validation Confusion Matrix:
+[[963694    731]
+ [   645    391]]
+2025-04-08 15:50:28,237 [INFO ]   Test Metrics - F1: 0.3072, Precision: 0.2444, Recall: 0.4134
+2025-04-08 15:50:28,237 [INFO ]   Test Confusion Matrix:
+[[859369   2059]
+ [   945    666]]
+2025-04-08 15:50:28,238 [INFO ] --- Epoch 54/100 ---
+2025-04-08 15:50:56,812 [INFO ]   Training Loss: 0.0153
+2025-04-08 15:50:56,813 [INFO ]   Train Metrics - F1: 0.4247, Precision: 0.3834, Recall: 0.4759
+2025-04-08 15:50:56,813 [INFO ]   Train Confusion Matrix:
+[[3243771    1936]
+ [   1326    1204]]
+2025-04-08 15:50:56,813 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:51:08,109 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:51:20,131 [INFO ]   Validation Metrics - F1: 0.3381, Precision: 0.2740, Recall: 0.4415
+2025-04-08 15:51:20,131 [INFO ]   Validation Confusion Matrix:
+[[963232   1211]
+ [   578    457]]
+2025-04-08 15:51:20,132 [INFO ]   Test Metrics - F1: 0.2981, Precision: 0.2101, Recall: 0.5133
+2025-04-08 15:51:20,132 [INFO ]   Test Confusion Matrix:
+[[858344   3110]
+ [   784    827]]
+2025-04-08 15:51:20,132 [INFO ] --- Epoch 55/100 ---
+2025-04-08 15:51:48,718 [INFO ]   Training Loss: 0.0151
+2025-04-08 15:51:48,719 [INFO ]   Train Metrics - F1: 0.4332, Precision: 0.3912, Recall: 0.4854
+2025-04-08 15:51:48,719 [INFO ]   Train Confusion Matrix:
+[[3243796    1911]
+ [   1302    1228]]
+2025-04-08 15:51:48,719 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:52:00,100 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:52:12,096 [INFO ]   Validation Metrics - F1: 0.3611, Precision: 0.3244, Recall: 0.4073
+2025-04-08 15:52:12,096 [INFO ]   Validation Confusion Matrix:
+[[963556    879]
+ [   614    422]]
+2025-04-08 15:52:12,097 [INFO ]   Test Metrics - F1: 0.3208, Precision: 0.2414, Recall: 0.4780
+2025-04-08 15:52:12,097 [INFO ]   Test Confusion Matrix:
+[[859039   2420]
+ [   841    770]]
+2025-04-08 15:52:12,098 [INFO ] --- Epoch 56/100 ---
+2025-04-08 15:52:40,778 [INFO ]   Training Loss: 0.0147
+2025-04-08 15:52:40,778 [INFO ]   Train Metrics - F1: 0.4350, Precision: 0.3827, Recall: 0.5040
+2025-04-08 15:52:40,779 [INFO ]   Train Confusion Matrix:
+[[3243659    2057]
+ [   1255    1275]]
+2025-04-08 15:52:40,779 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:52:52,125 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:53:04,132 [INFO ]   Validation Metrics - F1: 0.3796, Precision: 0.4459, Recall: 0.3304
+2025-04-08 15:53:04,132 [INFO ]   Validation Confusion Matrix:
+[[964015    425]
+ [   693    342]]
+2025-04-08 15:53:04,132 [INFO ]   Test Metrics - F1: 0.3296, Precision: 0.2896, Recall: 0.3824
+2025-04-08 15:53:04,132 [INFO ]   Test Confusion Matrix:
+[[859933   1511]
+ [   995    616]]
+2025-04-08 15:53:04,133 [INFO ] --- Epoch 57/100 ---
+2025-04-08 15:53:32,716 [INFO ]   Training Loss: 0.0149
+2025-04-08 15:53:32,716 [INFO ]   Train Metrics - F1: 0.4290, Precision: 0.3833, Recall: 0.4870
+2025-04-08 15:53:32,717 [INFO ]   Train Confusion Matrix:
+[[3243722    1982]
+ [   1298    1232]]
+2025-04-08 15:53:32,717 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:53:44,066 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:53:56,055 [INFO ]   Validation Metrics - F1: 0.3475, Precision: 0.3014, Recall: 0.4102
+2025-04-08 15:53:56,056 [INFO ]   Validation Confusion Matrix:
+[[963439    985]
+ [   611    425]]
+2025-04-08 15:53:56,056 [INFO ]   Test Metrics - F1: 0.3070, Precision: 0.2290, Recall: 0.4655
+2025-04-08 15:53:56,057 [INFO ]   Test Confusion Matrix:
+[[858922   2525]
+ [   861    750]]
+2025-04-08 15:53:56,057 [INFO ] --- Epoch 58/100 ---
+2025-04-08 15:54:24,612 [INFO ]   Training Loss: 0.0151
+2025-04-08 15:54:24,613 [INFO ]   Train Metrics - F1: 0.4242, Precision: 0.3775, Recall: 0.4842
+2025-04-08 15:54:24,614 [INFO ]   Train Confusion Matrix:
+[[3243690    2020]
+ [   1305    1225]]
+2025-04-08 15:54:24,614 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:54:35,982 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:54:48,034 [INFO ]   Validation Metrics - F1: 0.3570, Precision: 0.3052, Recall: 0.4300
+2025-04-08 15:54:48,035 [INFO ]   Validation Confusion Matrix:
+[[963428   1013]
+ [   590    445]]
+2025-04-08 15:54:48,036 [INFO ]   Test Metrics - F1: 0.2711, Precision: 0.1886, Recall: 0.4817
+2025-04-08 15:54:48,036 [INFO ]   Test Confusion Matrix:
+[[858106   3338]
+ [   835    776]]
+2025-04-08 15:54:48,037 [INFO ] --- Epoch 59/100 ---
+2025-04-08 15:55:16,582 [INFO ]   Training Loss: 0.0152
+2025-04-08 15:55:16,582 [INFO ]   Train Metrics - F1: 0.4187, Precision: 0.3689, Recall: 0.4842
+2025-04-08 15:55:16,583 [INFO ]   Train Confusion Matrix:
+[[3243613    2096]
+ [   1305    1225]]
+2025-04-08 15:55:16,583 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:55:27,971 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:55:40,022 [INFO ]   Validation Metrics - F1: 0.3431, Precision: 0.3007, Recall: 0.3996
+2025-04-08 15:55:40,022 [INFO ]   Validation Confusion Matrix:
+[[963465    963]
+ [   622    414]]
+2025-04-08 15:55:40,022 [INFO ]   Test Metrics - F1: 0.3228, Precision: 0.2435, Recall: 0.4786
+2025-04-08 15:55:40,023 [INFO ]   Test Confusion Matrix:
+[[859056   2395]
+ [   840    771]]
+2025-04-08 15:55:40,023 [INFO ] --- Epoch 60/100 ---
+2025-04-08 15:56:08,589 [INFO ]   Training Loss: 0.0149
+2025-04-08 15:56:08,590 [INFO ]   Train Metrics - F1: 0.4219, Precision: 0.3622, Recall: 0.5051
+2025-04-08 15:56:08,590 [INFO ]   Train Confusion Matrix:
+[[3243477    2250]
+ [   1252    1278]]
+2025-04-08 15:56:08,591 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:56:19,916 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:56:31,965 [INFO ]   Validation Metrics - F1: 0.3309, Precision: 0.2751, Recall: 0.4151
+2025-04-08 15:56:31,966 [INFO ]   Validation Confusion Matrix:
+[[963301   1133]
+ [   606    430]]
+2025-04-08 15:56:31,967 [INFO ]   Test Metrics - F1: 0.2821, Precision: 0.1972, Recall: 0.4953
+2025-04-08 15:56:31,967 [INFO ]   Test Confusion Matrix:
+[[858189   3249]
+ [   813    798]]
+2025-04-08 15:56:31,968 [INFO ] --- Epoch 61/100 ---
+2025-04-08 15:57:00,473 [INFO ]   Training Loss: 0.0155
+2025-04-08 15:57:00,474 [INFO ]   Train Metrics - F1: 0.4172, Precision: 0.3729, Recall: 0.4735
+2025-04-08 15:57:00,474 [INFO ]   Train Confusion Matrix:
+[[3243705    2015]
+ [   1332    1198]]
+2025-04-08 15:57:00,474 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:57:11,798 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:57:23,817 [INFO ]   Validation Metrics - F1: 0.3829, Precision: 0.3620, Recall: 0.4064
+2025-04-08 15:57:23,818 [INFO ]   Validation Confusion Matrix:
+[[963684    742]
+ [   615    421]]
+2025-04-08 15:57:23,819 [INFO ]   Test Metrics - F1: 0.3266, Precision: 0.2530, Recall: 0.4606
+2025-04-08 15:57:23,819 [INFO ]   Test Confusion Matrix:
+[[859255   2191]
+ [   869    742]]
+2025-04-08 15:57:23,819 [INFO ] --- Epoch 62/100 ---
+2025-04-08 15:57:52,424 [INFO ]   Training Loss: 0.0151
+2025-04-08 15:57:52,424 [INFO ]   Train Metrics - F1: 0.4308, Precision: 0.3850, Recall: 0.4889
+2025-04-08 15:57:52,425 [INFO ]   Train Confusion Matrix:
+[[3243709    1976]
+ [   1293    1237]]
+2025-04-08 15:57:52,425 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:58:03,747 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:58:15,743 [INFO ]   Validation Metrics - F1: 0.3533, Precision: 0.3070, Recall: 0.4160
+2025-04-08 15:58:15,743 [INFO ]   Validation Confusion Matrix:
+[[963455    973]
+ [   605    431]]
+2025-04-08 15:58:15,744 [INFO ]   Test Metrics - F1: 0.3144, Precision: 0.2350, Recall: 0.4749
+2025-04-08 15:58:15,744 [INFO ]   Test Confusion Matrix:
+[[858954   2491]
+ [   846    765]]
+2025-04-08 15:58:15,744 [INFO ] --- Epoch 63/100 ---
+2025-04-08 15:58:44,361 [INFO ]   Training Loss: 0.0157
+2025-04-08 15:58:44,362 [INFO ]   Train Metrics - F1: 0.4020, Precision: 0.3498, Recall: 0.4723
+2025-04-08 15:58:44,362 [INFO ]   Train Confusion Matrix:
+[[3243497    2221]
+ [   1335    1195]]
+2025-04-08 15:58:44,362 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:58:55,693 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:59:07,704 [INFO ]   Validation Metrics - F1: 0.3461, Precision: 0.2883, Recall: 0.4329
+2025-04-08 15:59:07,704 [INFO ]   Validation Confusion Matrix:
+[[963336   1106]
+ [   587    448]]
+2025-04-08 15:59:07,705 [INFO ]   Test Metrics - F1: 0.3138, Precision: 0.2248, Recall: 0.5196
+2025-04-08 15:59:07,705 [INFO ]   Test Confusion Matrix:
+[[858569   2886]
+ [   774    837]]
+2025-04-08 15:59:07,705 [INFO ] --- Epoch 64/100 ---
+2025-04-08 15:59:36,366 [INFO ]   Training Loss: 0.0147
+2025-04-08 15:59:36,366 [INFO ]   Train Metrics - F1: 0.4413, Precision: 0.3925, Recall: 0.5040
+2025-04-08 15:59:36,367 [INFO ]   Train Confusion Matrix:
+[[3243737    1973]
+ [   1255    1275]]
+2025-04-08 15:59:36,367 [INFO ]   Evaluating on Validation Set...
+2025-04-08 15:59:47,716 [INFO ]   Evaluating on Test Set...
+2025-04-08 15:59:59,724 [INFO ]   Validation Metrics - F1: 0.3385, Precision: 0.2789, Recall: 0.4305
+2025-04-08 15:59:59,724 [INFO ]   Validation Confusion Matrix:
+[[963272   1153]
+ [   590    446]]
+2025-04-08 15:59:59,725 [INFO ]   Test Metrics - F1: 0.2627, Precision: 0.1795, Recall: 0.4898
+2025-04-08 15:59:59,725 [INFO ]   Test Confusion Matrix:
+[[857845   3606]
+ [   822    789]]
+2025-04-08 15:59:59,725 [INFO ] --- Epoch 65/100 ---
+2025-04-08 16:00:28,297 [INFO ]   Training Loss: 0.0153
+2025-04-08 16:00:28,297 [INFO ]   Train Metrics - F1: 0.4282, Precision: 0.3733, Recall: 0.5020
+2025-04-08 16:00:28,298 [INFO ]   Train Confusion Matrix:
+[[3243585    2132]
+ [   1260    1270]]
+2025-04-08 16:00:28,298 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:00:39,653 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:00:51,700 [INFO ]   Validation Metrics - F1: 0.3790, Precision: 0.3721, Recall: 0.3861
+2025-04-08 16:00:51,700 [INFO ]   Validation Confusion Matrix:
+[[963757    675]
+ [   636    400]]
+2025-04-08 16:00:51,700 [INFO ]   Test Metrics - F1: 0.3258, Precision: 0.2520, Recall: 0.4606
+2025-04-08 16:00:51,700 [INFO ]   Test Confusion Matrix:
+[[859237   2202]
+ [   869    742]]
+2025-04-08 16:00:51,701 [INFO ] --- Epoch 66/100 ---
+2025-04-08 16:01:20,315 [INFO ]   Training Loss: 0.0147
+2025-04-08 16:01:20,316 [INFO ]   Train Metrics - F1: 0.4502, Precision: 0.4063, Recall: 0.5047
+2025-04-08 16:01:20,317 [INFO ]   Train Confusion Matrix:
+[[3243858    1866]
+ [   1253    1277]]
+2025-04-08 16:01:20,317 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:01:31,697 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:01:43,756 [INFO ]   Validation Metrics - F1: 0.3715, Precision: 0.3530, Recall: 0.3919
+2025-04-08 16:01:43,757 [INFO ]   Validation Confusion Matrix:
+[[963687    744]
+ [   630    406]]
+2025-04-08 16:01:43,757 [INFO ]   Test Metrics - F1: 0.3363, Precision: 0.2663, Recall: 0.4562
+2025-04-08 16:01:43,757 [INFO ]   Test Confusion Matrix:
+[[859421   2025]
+ [   876    735]]
+2025-04-08 16:01:43,758 [INFO ] --- Epoch 67/100 ---
+2025-04-08 16:02:12,314 [INFO ]   Training Loss: 0.0144
+2025-04-08 16:02:12,314 [INFO ]   Train Metrics - F1: 0.4588, Precision: 0.4084, Recall: 0.5233
+2025-04-08 16:02:12,315 [INFO ]   Train Confusion Matrix:
+[[3243800    1918]
+ [   1206    1324]]
+2025-04-08 16:02:12,315 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:02:23,686 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:02:35,699 [INFO ]   Validation Metrics - F1: 0.3776, Precision: 0.3686, Recall: 0.3871
+2025-04-08 16:02:35,699 [INFO ]   Validation Confusion Matrix:
+[[963745    687]
+ [   635    401]]
+2025-04-08 16:02:35,700 [INFO ]   Test Metrics - F1: 0.3220, Precision: 0.2476, Recall: 0.4606
+2025-04-08 16:02:35,700 [INFO ]   Test Confusion Matrix:
+[[859200   2255]
+ [   869    742]]
+2025-04-08 16:02:35,701 [INFO ] --- Epoch 68/100 ---
+2025-04-08 16:03:04,271 [INFO ]   Training Loss: 0.0143
+2025-04-08 16:03:04,272 [INFO ]   Train Metrics - F1: 0.4615, Precision: 0.4165, Recall: 0.5174
+2025-04-08 16:03:04,272 [INFO ]   Train Confusion Matrix:
+[[3243875    1834]
+ [   1221    1309]]
+2025-04-08 16:03:04,272 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:03:15,603 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:03:27,677 [INFO ]   Validation Metrics - F1: 0.3561, Precision: 0.3290, Recall: 0.3880
+2025-04-08 16:03:27,678 [INFO ]   Validation Confusion Matrix:
+[[963612    820]
+ [   634    402]]
+2025-04-08 16:03:27,679 [INFO ]   Test Metrics - F1: 0.2961, Precision: 0.2214, Recall: 0.4469
+2025-04-08 16:03:27,679 [INFO ]   Test Confusion Matrix:
+[[858913   2532]
+ [   891    720]]
+2025-04-08 16:03:27,679 [INFO ] --- Epoch 69/100 ---
+2025-04-08 16:03:56,287 [INFO ]   Training Loss: 0.0141
+2025-04-08 16:03:56,288 [INFO ]   Train Metrics - F1: 0.4562, Precision: 0.4043, Recall: 0.5233
+2025-04-08 16:03:56,288 [INFO ]   Train Confusion Matrix:
+[[3243775    1951]
+ [   1206    1324]]
+2025-04-08 16:03:56,288 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:04:07,653 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:04:19,696 [INFO ]   Validation Metrics - F1: 0.3528, Precision: 0.3061, Recall: 0.4164
+2025-04-08 16:04:19,696 [INFO ]   Validation Confusion Matrix:
+[[963459    977]
+ [   604    431]]
+2025-04-08 16:04:19,697 [INFO ]   Test Metrics - F1: 0.3105, Precision: 0.2246, Recall: 0.5028
+2025-04-08 16:04:19,697 [INFO ]   Test Confusion Matrix:
+[[858642   2797]
+ [   801    810]]
+2025-04-08 16:04:19,697 [INFO ] --- Epoch 70/100 ---
+2025-04-08 16:04:48,340 [INFO ]   Training Loss: 0.0145
+2025-04-08 16:04:48,340 [INFO ]   Train Metrics - F1: 0.4441, Precision: 0.3941, Recall: 0.5087
+2025-04-08 16:04:48,340 [INFO ]   Train Confusion Matrix:
+[[3243742    1979]
+ [   1243    1287]]
+2025-04-08 16:04:48,340 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:04:59,746 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:05:11,812 [INFO ]   Validation Metrics - F1: 0.3714, Precision: 0.3440, Recall: 0.4035
+2025-04-08 16:05:11,813 [INFO ]   Validation Confusion Matrix:
+[[963629    797]
+ [   618    418]]
+2025-04-08 16:05:11,813 [INFO ]   Test Metrics - F1: 0.3247, Precision: 0.2526, Recall: 0.4544
+2025-04-08 16:05:11,813 [INFO ]   Test Confusion Matrix:
+[[859285   2166]
+ [   879    732]]
+2025-04-08 16:05:11,814 [INFO ] --- Epoch 71/100 ---
+2025-04-08 16:05:40,519 [INFO ]   Training Loss: 0.0140
+2025-04-08 16:05:40,520 [INFO ]   Train Metrics - F1: 0.4635, Precision: 0.4106, Recall: 0.5320
+2025-04-08 16:05:40,521 [INFO ]   Train Confusion Matrix:
+[[3243790    1932]
+ [   1184    1346]]
+2025-04-08 16:05:40,521 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:05:51,914 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:06:03,954 [INFO ]   Validation Metrics - F1: 0.3781, Precision: 0.3692, Recall: 0.3874
+2025-04-08 16:06:03,954 [INFO ]   Validation Confusion Matrix:
+[[963749    685]
+ [   634    401]]
+2025-04-08 16:06:03,955 [INFO ]   Test Metrics - F1: 0.3507, Precision: 0.2886, Recall: 0.4469
+2025-04-08 16:06:03,955 [INFO ]   Test Confusion Matrix:
+[[859684   1775]
+ [   891    720]]
+2025-04-08 16:06:03,955 [INFO ] --- Epoch 72/100 ---
+2025-04-08 16:06:32,565 [INFO ]   Training Loss: 0.0140
+2025-04-08 16:06:32,565 [INFO ]   Train Metrics - F1: 0.4583, Precision: 0.4005, Recall: 0.5356
+2025-04-08 16:06:32,565 [INFO ]   Train Confusion Matrix:
+[[3243680    2028]
+ [   1175    1355]]
+2025-04-08 16:06:32,566 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:06:43,941 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:06:55,970 [INFO ]   Validation Metrics - F1: 0.3689, Precision: 0.3485, Recall: 0.3919
+2025-04-08 16:06:55,971 [INFO ]   Validation Confusion Matrix:
+[[963673    759]
+ [   630    406]]
+2025-04-08 16:06:55,972 [INFO ]   Test Metrics - F1: 0.2984, Precision: 0.2233, Recall: 0.4494
+2025-04-08 16:06:55,972 [INFO ]   Test Confusion Matrix:
+[[858922   2518]
+ [   887    724]]
+2025-04-08 16:06:55,973 [INFO ] --- Epoch 73/100 ---
+2025-04-08 16:07:24,566 [INFO ]   Training Loss: 0.0140
+2025-04-08 16:07:24,566 [INFO ]   Train Metrics - F1: 0.4620, Precision: 0.4041, Recall: 0.5391
+2025-04-08 16:07:24,567 [INFO ]   Train Confusion Matrix:
+[[3243700    2011]
+ [   1166    1364]]
+2025-04-08 16:07:24,567 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:07:35,921 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:07:47,932 [INFO ]   Validation Metrics - F1: 0.3577, Precision: 0.3301, Recall: 0.3903
+2025-04-08 16:07:47,932 [INFO ]   Validation Confusion Matrix:
+[[963610    820]
+ [   631    404]]
+2025-04-08 16:07:47,932 [INFO ]   Test Metrics - F1: 0.3026, Precision: 0.2329, Recall: 0.4320
+2025-04-08 16:07:47,933 [INFO ]   Test Confusion Matrix:
+[[859127   2293]
+ [   915    696]]
+2025-04-08 16:07:47,933 [INFO ] --- Epoch 74/100 ---
+2025-04-08 16:08:16,531 [INFO ]   Training Loss: 0.0141
+2025-04-08 16:08:16,531 [INFO ]   Train Metrics - F1: 0.4478, Precision: 0.3847, Recall: 0.5356
+2025-04-08 16:08:16,531 [INFO ]   Train Confusion Matrix:
+[[3243564    2167]
+ [   1175    1355]]
+2025-04-08 16:08:16,531 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:08:27,915 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:08:39,923 [INFO ]   Validation Metrics - F1: 0.3836, Precision: 0.3780, Recall: 0.3894
+2025-04-08 16:08:39,924 [INFO ]   Validation Confusion Matrix:
+[[963768    663]
+ [   632    403]]
+2025-04-08 16:08:39,925 [INFO ]   Test Metrics - F1: 0.2983, Precision: 0.2263, Recall: 0.4376
+2025-04-08 16:08:39,925 [INFO ]   Test Confusion Matrix:
+[[859055   2410]
+ [   906    705]]
+2025-04-08 16:08:39,925 [INFO ] --- Epoch 75/100 ---
+2025-04-08 16:09:08,492 [INFO ]   Training Loss: 0.0139
+2025-04-08 16:09:08,492 [INFO ]   Train Metrics - F1: 0.4575, Precision: 0.3987, Recall: 0.5368
+2025-04-08 16:09:08,493 [INFO ]   Train Confusion Matrix:
+[[3243643    2048]
+ [   1172    1358]]
+2025-04-08 16:09:08,493 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:09:19,892 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:09:31,930 [INFO ]   Validation Metrics - F1: 0.3614, Precision: 0.3526, Recall: 0.3707
+2025-04-08 16:09:31,930 [INFO ]   Validation Confusion Matrix:
+[[963730    705]
+ [   652    384]]
+2025-04-08 16:09:31,931 [INFO ]   Test Metrics - F1: 0.3117, Precision: 0.2474, Recall: 0.4209
+2025-04-08 16:09:31,931 [INFO ]   Test Confusion Matrix:
+[[859373   2062]
+ [   933    678]]
+2025-04-08 16:09:31,931 [INFO ] --- Epoch 76/100 ---
+2025-04-08 16:10:00,454 [INFO ]   Training Loss: 0.0138
+2025-04-08 16:10:00,454 [INFO ]   Train Metrics - F1: 0.4575, Precision: 0.3986, Recall: 0.5368
+2025-04-08 16:10:00,455 [INFO ]   Train Confusion Matrix:
+[[3243676    2049]
+ [   1172    1358]]
+2025-04-08 16:10:00,455 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:10:11,790 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:10:23,837 [INFO ]   Validation Metrics - F1: 0.3623, Precision: 0.3410, Recall: 0.3865
+2025-04-08 16:10:23,838 [INFO ]   Validation Confusion Matrix:
+[[963654    773]
+ [   635    400]]
+2025-04-08 16:10:23,838 [INFO ]   Test Metrics - F1: 0.2874, Precision: 0.2145, Recall: 0.4351
+2025-04-08 16:10:23,838 [INFO ]   Test Confusion Matrix:
+[[858870   2567]
+ [   910    701]]
+2025-04-08 16:10:23,839 [INFO ] --- Epoch 77/100 ---
+2025-04-08 16:10:52,490 [INFO ]   Training Loss: 0.0145
+2025-04-08 16:10:52,490 [INFO ]   Train Metrics - F1: 0.4570, Precision: 0.3970, Recall: 0.5383
+2025-04-08 16:10:52,491 [INFO ]   Train Confusion Matrix:
+[[3243661    2069]
+ [   1168    1362]]
+2025-04-08 16:10:52,491 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:11:03,821 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:11:15,871 [INFO ]   Validation Metrics - F1: 0.3381, Precision: 0.2817, Recall: 0.4228
+2025-04-08 16:11:15,871 [INFO ]   Validation Confusion Matrix:
+[[963322   1117]
+ [   598    438]]
+2025-04-08 16:11:15,872 [INFO ]   Test Metrics - F1: 0.2519, Precision: 0.1702, Recall: 0.4842
+2025-04-08 16:11:15,872 [INFO ]   Test Confusion Matrix:
+[[857643   3802]
+ [   831    780]]
+2025-04-08 16:11:15,873 [INFO ] --- Epoch 78/100 ---
+2025-04-08 16:11:44,521 [INFO ]   Training Loss: 0.0145
+2025-04-08 16:11:44,521 [INFO ]   Train Metrics - F1: 0.4509, Precision: 0.3973, Recall: 0.5213
+2025-04-08 16:11:44,521 [INFO ]   Train Confusion Matrix:
+[[3243719    2001]
+ [   1211    1319]]
+2025-04-08 16:11:44,522 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:11:55,889 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:12:07,907 [INFO ]   Validation Metrics - F1: 0.3417, Precision: 0.2814, Recall: 0.4348
+2025-04-08 16:12:07,907 [INFO ]   Validation Confusion Matrix:
+[[963290   1149]
+ [   585    450]]
+2025-04-08 16:12:07,907 [INFO ]   Test Metrics - F1: 0.2810, Precision: 0.1937, Recall: 0.5115
+2025-04-08 16:12:07,907 [INFO ]   Test Confusion Matrix:
+[[858020   3430]
+ [   787    824]]
+2025-04-08 16:12:07,908 [INFO ] --- Epoch 79/100 ---
+2025-04-08 16:12:36,519 [INFO ]   Training Loss: 0.0141
+2025-04-08 16:12:36,519 [INFO ]   Train Metrics - F1: 0.4577, Precision: 0.4096, Recall: 0.5186
+2025-04-08 16:12:36,520 [INFO ]   Train Confusion Matrix:
+[[3243835    1891]
+ [   1218    1312]]
+2025-04-08 16:12:36,520 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:12:47,905 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:12:59,911 [INFO ]   Validation Metrics - F1: 0.3597, Precision: 0.3344, Recall: 0.3890
+2025-04-08 16:12:59,912 [INFO ]   Validation Confusion Matrix:
+[[963632    802]
+ [   633    403]]
+2025-04-08 16:12:59,913 [INFO ]   Test Metrics - F1: 0.3145, Precision: 0.2458, Recall: 0.4364
+2025-04-08 16:12:59,913 [INFO ]   Test Confusion Matrix:
+[[859294   2157]
+ [   908    703]]
+2025-04-08 16:12:59,913 [INFO ] --- Epoch 80/100 ---
+2025-04-08 16:13:28,518 [INFO ]   Training Loss: 0.0139
+2025-04-08 16:13:28,519 [INFO ]   Train Metrics - F1: 0.4542, Precision: 0.3918, Recall: 0.5403
+2025-04-08 16:13:28,519 [INFO ]   Train Confusion Matrix:
+[[3243600    2122]
+ [   1163    1367]]
+2025-04-08 16:13:28,519 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:13:39,884 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:13:51,871 [INFO ]   Validation Metrics - F1: 0.3714, Precision: 0.3420, Recall: 0.4064
+2025-04-08 16:13:51,871 [INFO ]   Validation Confusion Matrix:
+[[963624    810]
+ [   615    421]]
+2025-04-08 16:13:51,872 [INFO ]   Test Metrics - F1: 0.2896, Precision: 0.2102, Recall: 0.4655
+2025-04-08 16:13:51,872 [INFO ]   Test Confusion Matrix:
+[[858621   2818]
+ [   861    750]]
+2025-04-08 16:13:51,873 [INFO ] --- Epoch 81/100 ---
+2025-04-08 16:14:20,488 [INFO ]   Training Loss: 0.0138
+2025-04-08 16:14:20,488 [INFO ]   Train Metrics - F1: 0.4833, Precision: 0.4362, Recall: 0.5419
+2025-04-08 16:14:20,489 [INFO ]   Train Confusion Matrix:
+[[3243934    1772]
+ [   1159    1371]]
+2025-04-08 16:14:20,489 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:14:31,888 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:14:43,951 [INFO ]   Validation Metrics - F1: 0.3389, Precision: 0.2715, Recall: 0.4508
+2025-04-08 16:14:43,951 [INFO ]   Validation Confusion Matrix:
+[[963182   1253]
+ [   569    467]]
+2025-04-08 16:14:43,952 [INFO ]   Test Metrics - F1: 0.2712, Precision: 0.1840, Recall: 0.5152
+2025-04-08 16:14:43,952 [INFO ]   Test Confusion Matrix:
+[[857764   3681]
+ [   781    830]]
+2025-04-08 16:14:43,953 [INFO ] --- Epoch 82/100 ---
+2025-04-08 16:15:12,527 [INFO ]   Training Loss: 0.0136
+2025-04-08 16:15:12,527 [INFO ]   Train Metrics - F1: 0.4679, Precision: 0.4032, Recall: 0.5573
+2025-04-08 16:15:12,527 [INFO ]   Train Confusion Matrix:
+[[3243630    2087]
+ [   1120    1410]]
+2025-04-08 16:15:12,528 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:15:23,942 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:15:36,146 [INFO ]   Validation Metrics - F1: 0.3884, Precision: 0.4114, Recall: 0.3678
+2025-04-08 16:15:36,147 [INFO ]   Validation Confusion Matrix:
+[[963891    545]
+ [   655    381]]
+2025-04-08 16:15:36,148 [INFO ]   Test Metrics - F1: 0.2849, Precision: 0.2257, Recall: 0.3861
+2025-04-08 16:15:36,148 [INFO ]   Test Confusion Matrix:
+[[859308   2134]
+ [   989    622]]
+2025-04-08 16:15:36,148 [INFO ] --- Epoch 83/100 ---
+2025-04-08 16:16:05,005 [INFO ]   Training Loss: 0.0139
+2025-04-08 16:16:05,006 [INFO ]   Train Metrics - F1: 0.4621, Precision: 0.4051, Recall: 0.5379
+2025-04-08 16:16:05,007 [INFO ]   Train Confusion Matrix:
+[[3243723    1999]
+ [   1169    1361]]
+2025-04-08 16:16:05,007 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:16:16,481 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:16:28,654 [INFO ]   Validation Metrics - F1: 0.3346, Precision: 0.2812, Recall: 0.4131
+2025-04-08 16:16:28,655 [INFO ]   Validation Confusion Matrix:
+[[963336   1094]
+ [   608    428]]
+2025-04-08 16:16:28,655 [INFO ]   Test Metrics - F1: 0.3112, Precision: 0.2278, Recall: 0.4910
+2025-04-08 16:16:28,655 [INFO ]   Test Confusion Matrix:
+[[858745   2681]
+ [   820    791]]
+2025-04-08 16:16:28,656 [INFO ] --- Epoch 84/100 ---
+2025-04-08 16:16:58,117 [INFO ]   Training Loss: 0.0161
+2025-04-08 16:16:58,117 [INFO ]   Train Metrics - F1: 0.3725, Precision: 0.3097, Recall: 0.4672
+2025-04-08 16:16:58,118 [INFO ]   Train Confusion Matrix:
+[[3243095    2634]
+ [   1348    1182]]
+2025-04-08 16:16:58,118 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:17:09,824 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:17:22,049 [INFO ]   Validation Metrics - F1: 0.3149, Precision: 0.2428, Recall: 0.4479
+2025-04-08 16:17:22,049 [INFO ]   Validation Confusion Matrix:
+[[962989   1447]
+ [   572    464]]
+2025-04-08 16:17:22,050 [INFO ]   Test Metrics - F1: 0.2275, Precision: 0.1454, Recall: 0.5220
+2025-04-08 16:17:22,050 [INFO ]   Test Confusion Matrix:
+[[856515   4943]
+ [   770    841]]
+2025-04-08 16:17:22,050 [INFO ] --- Epoch 85/100 ---
+2025-04-08 16:17:50,894 [INFO ]   Training Loss: 0.0158
+2025-04-08 16:17:50,894 [INFO ]   Train Metrics - F1: 0.3822, Precision: 0.3190, Recall: 0.4767
+2025-04-08 16:17:50,895 [INFO ]   Train Confusion Matrix:
+[[3243153    2575]
+ [   1324    1206]]
+2025-04-08 16:17:50,895 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:18:02,963 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:18:15,567 [INFO ]   Validation Metrics - F1: 0.3520, Precision: 0.3381, Recall: 0.3671
+2025-04-08 16:18:15,567 [INFO ]   Validation Confusion Matrix:
+[[963691    744]
+ [   655    380]]
+2025-04-08 16:18:15,568 [INFO ]   Test Metrics - F1: 0.3238, Precision: 0.2576, Recall: 0.4358
+2025-04-08 16:18:15,568 [INFO ]   Test Confusion Matrix:
+[[859426   2023]
+ [   909    702]]
+2025-04-08 16:18:15,568 [INFO ] --- Epoch 86/100 ---
+2025-04-08 16:18:45,222 [INFO ]   Training Loss: 0.0142
+2025-04-08 16:18:45,222 [INFO ]   Train Metrics - F1: 0.4452, Precision: 0.3858, Recall: 0.5261
+2025-04-08 16:18:45,223 [INFO ]   Train Confusion Matrix:
+[[3243607    2119]
+ [   1199    1331]]
+2025-04-08 16:18:45,223 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:18:57,080 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:19:09,745 [INFO ]   Validation Metrics - F1: 0.3664, Precision: 0.3280, Recall: 0.4151
+2025-04-08 16:19:09,745 [INFO ]   Validation Confusion Matrix:
+[[963553    881]
+ [   606    430]]
+2025-04-08 16:19:09,745 [INFO ]   Test Metrics - F1: 0.2713, Precision: 0.1880, Recall: 0.4873
+2025-04-08 16:19:09,745 [INFO ]   Test Confusion Matrix:
+[[858074   3390]
+ [   826    785]]
+2025-04-08 16:19:09,746 [INFO ] --- Epoch 87/100 ---
+2025-04-08 16:19:39,350 [INFO ]   Training Loss: 0.0139
+2025-04-08 16:19:39,350 [INFO ]   Train Metrics - F1: 0.4662, Precision: 0.4172, Recall: 0.5281
+2025-04-08 16:19:39,351 [INFO ]   Train Confusion Matrix:
+[[3243860    1866]
+ [   1194    1336]]
+2025-04-08 16:19:39,351 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:19:51,201 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:20:03,683 [INFO ]   Validation Metrics - F1: 0.3753, Precision: 0.3642, Recall: 0.3871
+2025-04-08 16:20:03,683 [INFO ]   Validation Confusion Matrix:
+[[963735    700]
+ [   635    401]]
+2025-04-08 16:20:03,684 [INFO ]   Test Metrics - F1: 0.3078, Precision: 0.2379, Recall: 0.4358
+2025-04-08 16:20:03,684 [INFO ]   Test Confusion Matrix:
+[[859176   2249]
+ [   909    702]]
+2025-04-08 16:20:03,684 [INFO ] --- Epoch 88/100 ---
+2025-04-08 16:20:33,379 [INFO ]   Training Loss: 0.0133
+2025-04-08 16:20:33,380 [INFO ]   Train Metrics - F1: 0.4945, Precision: 0.4417, Recall: 0.5617
+2025-04-08 16:20:33,380 [INFO ]   Train Confusion Matrix:
+[[3243910    1796]
+ [   1109    1421]]
+2025-04-08 16:20:33,381 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:20:45,213 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:20:57,732 [INFO ]   Validation Metrics - F1: 0.3725, Precision: 0.3359, Recall: 0.4180
+2025-04-08 16:20:57,732 [INFO ]   Validation Confusion Matrix:
+[[963568    856]
+ [   603    433]]
+2025-04-08 16:20:57,732 [INFO ]   Test Metrics - F1: 0.2859, Precision: 0.2062, Recall: 0.4662
+2025-04-08 16:20:57,732 [INFO ]   Test Confusion Matrix:
+[[858538   2891]
+ [   860    751]]
+2025-04-08 16:20:57,733 [INFO ] --- Epoch 89/100 ---
+2025-04-08 16:21:27,497 [INFO ]   Training Loss: 0.0133
+2025-04-08 16:21:27,497 [INFO ]   Train Metrics - F1: 0.4799, Precision: 0.4262, Recall: 0.5490
+2025-04-08 16:21:27,497 [INFO ]   Train Confusion Matrix:
+[[3243851    1870]
+ [   1141    1389]]
+2025-04-08 16:21:27,497 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:21:39,316 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:21:51,830 [INFO ]   Validation Metrics - F1: 0.3779, Precision: 0.3736, Recall: 0.3822
+2025-04-08 16:21:51,830 [INFO ]   Validation Confusion Matrix:
+[[963767    664]
+ [   640    396]]
+2025-04-08 16:21:51,831 [INFO ]   Test Metrics - F1: 0.3357, Precision: 0.2668, Recall: 0.4525
+2025-04-08 16:21:51,831 [INFO ]   Test Confusion Matrix:
+[[859428   2003]
+ [   882    729]]
+2025-04-08 16:21:51,831 [INFO ] --- Epoch 90/100 ---
+2025-04-08 16:22:21,425 [INFO ]   Training Loss: 0.0130
+2025-04-08 16:22:21,425 [INFO ]   Train Metrics - F1: 0.4932, Precision: 0.4361, Recall: 0.5676
+2025-04-08 16:22:21,425 [INFO ]   Train Confusion Matrix:
+[[3243853    1857]
+ [   1094    1436]]
+2025-04-08 16:22:21,425 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:22:33,259 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:22:45,871 [INFO ]   Validation Metrics - F1: 0.3763, Precision: 0.3881, Recall: 0.3652
+2025-04-08 16:22:45,871 [INFO ]   Validation Confusion Matrix:
+[[963844    596]
+ [   657    378]]
+2025-04-08 16:22:45,872 [INFO ]   Test Metrics - F1: 0.2954, Precision: 0.2317, Recall: 0.4072
+2025-04-08 16:22:45,872 [INFO ]   Test Confusion Matrix:
+[[859273   2175]
+ [   955    656]]
+2025-04-08 16:22:45,872 [INFO ] --- Epoch 91/100 ---
+2025-04-08 16:23:15,572 [INFO ]   Training Loss: 0.0136
+2025-04-08 16:23:15,572 [INFO ]   Train Metrics - F1: 0.4624, Precision: 0.3981, Recall: 0.5514
+2025-04-08 16:23:15,572 [INFO ]   Train Confusion Matrix:
+[[3243597    2109]
+ [   1135    1395]]
+2025-04-08 16:23:15,572 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:23:27,401 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:23:40,101 [INFO ]   Validation Metrics - F1: 0.3351, Precision: 0.2759, Recall: 0.4266
+2025-04-08 16:23:40,101 [INFO ]   Validation Confusion Matrix:
+[[963277   1160]
+ [   594    442]]
+2025-04-08 16:23:40,101 [INFO ]   Test Metrics - F1: 0.2622, Precision: 0.1815, Recall: 0.4724
+2025-04-08 16:23:40,102 [INFO ]   Test Confusion Matrix:
+[[857994   3432]
+ [   850    761]]
+2025-04-08 16:23:40,102 [INFO ] --- Epoch 92/100 ---
+2025-04-08 16:24:09,791 [INFO ]   Training Loss: 0.0135
+2025-04-08 16:24:09,791 [INFO ]   Train Metrics - F1: 0.4751, Precision: 0.4218, Recall: 0.5439
+2025-04-08 16:24:09,792 [INFO ]   Train Confusion Matrix:
+[[3243850    1886]
+ [   1154    1376]]
+2025-04-08 16:24:09,792 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:24:21,681 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:24:34,303 [INFO ]   Validation Metrics - F1: 0.3494, Precision: 0.2909, Recall: 0.4373
+2025-04-08 16:24:34,303 [INFO ]   Validation Confusion Matrix:
+[[963332   1104]
+ [   583    453]]
+2025-04-08 16:24:34,305 [INFO ]   Test Metrics - F1: 0.2994, Precision: 0.2132, Recall: 0.5028
+2025-04-08 16:24:34,305 [INFO ]   Test Confusion Matrix:
+[[858463   2990]
+ [   801    810]]
+2025-04-08 16:24:34,305 [INFO ] --- Epoch 93/100 ---
+2025-04-08 16:25:04,043 [INFO ]   Training Loss: 0.0148
+2025-04-08 16:25:04,043 [INFO ]   Train Metrics - F1: 0.3927, Precision: 0.3195, Recall: 0.5095
+2025-04-08 16:25:04,043 [INFO ]   Train Confusion Matrix:
+[[3242981    2746]
+ [   1241    1289]]
+2025-04-08 16:25:04,044 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:25:15,873 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:25:28,452 [INFO ]   Validation Metrics - F1: 0.3486, Precision: 0.3063, Recall: 0.4044
+2025-04-08 16:25:28,452 [INFO ]   Validation Confusion Matrix:
+[[963487    949]
+ [   617    419]]
+2025-04-08 16:25:28,453 [INFO ]   Test Metrics - F1: 0.2636, Precision: 0.1879, Recall: 0.4413
+2025-04-08 16:25:28,453 [INFO ]   Test Confusion Matrix:
+[[858387   3072]
+ [   900    711]]
+2025-04-08 16:25:28,454 [INFO ] --- Epoch 94/100 ---
+2025-04-08 16:25:58,090 [INFO ]   Training Loss: 0.0137
+2025-04-08 16:25:58,090 [INFO ]   Train Metrics - F1: 0.4689, Precision: 0.4146, Recall: 0.5395
+2025-04-08 16:25:58,091 [INFO ]   Train Confusion Matrix:
+[[3243792    1927]
+ [   1165    1365]]
+2025-04-08 16:25:58,091 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:26:09,897 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:26:22,402 [INFO ]   Validation Metrics - F1: 0.3518, Precision: 0.3094, Recall: 0.4077
+2025-04-08 16:26:22,402 [INFO ]   Validation Confusion Matrix:
+[[963491    942]
+ [   613    422]]
+2025-04-08 16:26:22,403 [INFO ]   Test Metrics - F1: 0.2151, Precision: 0.1404, Recall: 0.4600
+2025-04-08 16:26:22,403 [INFO ]   Test Confusion Matrix:
+[[856897   4537]
+ [   870    741]]
+2025-04-08 16:26:22,403 [INFO ] --- Epoch 95/100 ---
+2025-04-08 16:26:52,214 [INFO ]   Training Loss: 0.0132
+2025-04-08 16:26:52,214 [INFO ]   Train Metrics - F1: 0.4806, Precision: 0.4199, Recall: 0.5617
+2025-04-08 16:26:52,215 [INFO ]   Train Confusion Matrix:
+[[3243763    1963]
+ [   1109    1421]]
+2025-04-08 16:26:52,215 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:27:04,048 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:27:16,725 [INFO ]   Validation Metrics - F1: 0.3812, Precision: 0.3586, Recall: 0.4068
+2025-04-08 16:27:16,725 [INFO ]   Validation Confusion Matrix:
+[[963673    753]
+ [   614    421]]
+2025-04-08 16:27:16,726 [INFO ]   Test Metrics - F1: 0.3165, Precision: 0.2364, Recall: 0.4786
+2025-04-08 16:27:16,726 [INFO ]   Test Confusion Matrix:
+[[858953   2490]
+ [   840    771]]
+2025-04-08 16:27:16,727 [INFO ] --- Epoch 96/100 ---
+2025-04-08 16:27:46,568 [INFO ]   Training Loss: 0.0129
+2025-04-08 16:27:46,568 [INFO ]   Train Metrics - F1: 0.4993, Precision: 0.4440, Recall: 0.5704
+2025-04-08 16:27:46,569 [INFO ]   Train Confusion Matrix:
+[[3243905    1807]
+ [   1087    1443]]
+2025-04-08 16:27:46,569 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:27:58,403 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:28:10,983 [INFO ]   Validation Metrics - F1: 0.3711, Precision: 0.3412, Recall: 0.4068
+2025-04-08 16:28:10,984 [INFO ]   Validation Confusion Matrix:
+[[963617    813]
+ [   614    421]]
+2025-04-08 16:28:10,984 [INFO ]   Test Metrics - F1: 0.2767, Precision: 0.2003, Recall: 0.4475
+2025-04-08 16:28:10,984 [INFO ]   Test Confusion Matrix:
+[[858563   2879]
+ [   890    721]]
+2025-04-08 16:28:10,985 [INFO ] --- Epoch 97/100 ---
+2025-04-08 16:28:40,711 [INFO ]   Training Loss: 0.0136
+2025-04-08 16:28:40,711 [INFO ]   Train Metrics - F1: 0.4717, Precision: 0.4130, Recall: 0.5498
+2025-04-08 16:28:40,711 [INFO ]   Train Confusion Matrix:
+[[3243741    1977]
+ [   1139    1391]]
+2025-04-08 16:28:40,712 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:28:52,573 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:29:05,124 [INFO ]   Validation Metrics - F1: 0.3707, Precision: 0.3744, Recall: 0.3671
+2025-04-08 16:29:05,124 [INFO ]   Validation Confusion Matrix:
+[[963790    635]
+ [   655    380]]
+2025-04-08 16:29:05,124 [INFO ]   Test Metrics - F1: 0.3475, Precision: 0.2921, Recall: 0.4289
+2025-04-08 16:29:05,124 [INFO ]   Test Confusion Matrix:
+[[859753   1675]
+ [   920    691]]
+2025-04-08 16:29:05,125 [INFO ] --- Epoch 98/100 ---
+2025-04-08 16:29:34,902 [INFO ]   Training Loss: 0.0131
+2025-04-08 16:29:34,902 [INFO ]   Train Metrics - F1: 0.4860, Precision: 0.4299, Recall: 0.5589
+2025-04-08 16:29:34,902 [INFO ]   Train Confusion Matrix:
+[[3243844    1875]
+ [   1116    1414]]
+2025-04-08 16:29:34,902 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:29:46,833 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:29:59,451 [INFO ]   Validation Metrics - F1: 0.3409, Precision: 0.2839, Recall: 0.4266
+2025-04-08 16:29:59,451 [INFO ]   Validation Confusion Matrix:
+[[963318   1115]
+ [   594    442]]
+2025-04-08 16:29:59,452 [INFO ]   Test Metrics - F1: 0.2246, Precision: 0.1461, Recall: 0.4860
+2025-04-08 16:29:59,452 [INFO ]   Test Confusion Matrix:
+[[856863   4577]
+ [   828    783]]
+2025-04-08 16:29:59,452 [INFO ] --- Epoch 99/100 ---
+2025-04-08 16:30:29,129 [INFO ]   Training Loss: 0.0130
+2025-04-08 16:30:29,130 [INFO ]   Train Metrics - F1: 0.4963, Precision: 0.4390, Recall: 0.5708
+2025-04-08 16:30:29,130 [INFO ]   Train Confusion Matrix:
+[[3243844    1845]
+ [   1086    1444]]
+2025-04-08 16:30:29,130 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:30:40,907 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:30:53,487 [INFO ]   Validation Metrics - F1: 0.3506, Precision: 0.3366, Recall: 0.3658
+2025-04-08 16:30:53,487 [INFO ]   Validation Confusion Matrix:
+[[963686    747]
+ [   657    379]]
+2025-04-08 16:30:53,488 [INFO ]   Test Metrics - F1: 0.2342, Precision: 0.1656, Recall: 0.4004
+2025-04-08 16:30:53,488 [INFO ]   Test Confusion Matrix:
+[[858190   3251]
+ [   966    645]]
+2025-04-08 16:30:53,489 [INFO ] --- Epoch 100/100 ---
+2025-04-08 16:31:23,192 [INFO ]   Training Loss: 0.0132
+2025-04-08 16:31:23,193 [INFO ]   Train Metrics - F1: 0.4806, Precision: 0.4195, Recall: 0.5625
+2025-04-08 16:31:23,193 [INFO ]   Train Confusion Matrix:
+[[3243732    1969]
+ [   1107    1423]]
+2025-04-08 16:31:23,194 [INFO ]   Evaluating on Validation Set...
+2025-04-08 16:31:35,007 [INFO ]   Evaluating on Test Set...
+2025-04-08 16:31:47,528 [INFO ]   Validation Metrics - F1: 0.3399, Precision: 0.3105, Recall: 0.3755
+2025-04-08 16:31:47,528 [INFO ]   Validation Confusion Matrix:
+[[963573    864]
+ [   647    389]]
+2025-04-08 16:31:47,529 [INFO ]   Test Metrics - F1: 0.3295, Precision: 0.2689, Recall: 0.4252
+2025-04-08 16:31:47,529 [INFO ]   Test Confusion Matrix:
+[[859588   1862]
+ [   926    685]]
+2025-04-08 16:31:47,529 [INFO ] Homogenous GNN training finished.
+2025-04-08 16:31:47,530 [INFO ] Finishing wandb run: fancy-universe-7

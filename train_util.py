@@ -4,8 +4,10 @@ from torch_geometric.transforms import BaseTransform
 from typing import Union
 from torch_geometric.data import Data, HeteroData
 from torch_geometric.loader import LinkNeighborLoader
-from sklearn.metrics import f1_score
+# 从 sklearn.metrics 导入所需函数
+from sklearn.metrics import f1_score, confusion_matrix, precision_score, recall_score # [Source 83: Existing f1_score import]
 import json
+import numpy as np # 确保导入 numpy
 
 class AddEgoIds(BaseTransform):
     r"""Add IDs to the centre nodes of the batch.
@@ -96,8 +98,9 @@ def get_loaders(tr_data, val_data, te_data, tr_inds, val_inds, te_inds, transfor
     return tr_loader, val_loader, te_loader
 
 @torch.no_grad()
-def evaluate_homo(loader, inds, model, data, device, args):
+def evaluate_homo(loader, inds, model, data, device, args): # [Source 95]
     '''Evaluates the model performane for homogenous graph data.'''
+    model.eval() # 设置模型为评估模式
     preds = []
     ground_truths = []
     for batch in tqdm.tqdm(loader, disable=not args.tqdm):
@@ -126,24 +129,32 @@ def evaluate_homo(loader, inds, model, data, device, args):
             mask = torch.cat((mask, torch.ones(add_y.shape[0], dtype=torch.bool)))
 
         #remove the unique edge id from the edge features, as it's no longer needed
-        batch.edge_attr = batch.edge_attr[:, 1:]
+        batch.edge_attr = batch.edge_attr[:, 1:] # [Source 98]
         
         with torch.no_grad():
             batch.to(device)
-            out = model(batch.x, batch.edge_index, batch.edge_attr)
+            out = model(batch.x, batch.edge_index, batch.edge_attr) # [Source 99]
             out = out[mask]
             pred = out.argmax(dim=-1)
             preds.append(pred)
-            ground_truths.append(batch.y[mask])
+            ground_truths.append(batch.y[mask]) # [Source 99]
+            
     pred = torch.cat(preds, dim=0).cpu().numpy()
     ground_truth = torch.cat(ground_truths, dim=0).cpu().numpy()
-    f1 = f1_score(ground_truth, pred)
+    # 计算 F1, Precision, Recall, Confusion Matrix
+    # 使用 zero_division=0 来处理分母为零的情况 (例如，没有预测为正样本，导致 precision 为 0/0)
+    f1 = f1_score(ground_truth, pred, zero_division=0) # [Source 99: Original f1 calculation]
+    precision = precision_score(ground_truth, pred, zero_division=0)
+    recall = recall_score(ground_truth, pred, zero_division=0)
+    conf_matrix = confusion_matrix(ground_truth, pred)
 
-    return f1
+    # 返回所有指标
+    return f1, precision, recall, conf_matrix # 修改返回值
 
 @torch.no_grad()
-def evaluate_hetero(loader, inds, model, data, device, args):
+def evaluate_hetero(loader, inds, model, data, device, args): # [Source 100]
     '''Evaluates the model performane for heterogenous graph data.'''
+    model.eval() # 设置模型为评估模式
     preds = []
     ground_truths = []
     for batch in tqdm.tqdm(loader, disable=not args.tqdm):
@@ -172,22 +183,29 @@ def evaluate_hetero(loader, inds, model, data, device, args):
             mask = torch.cat((mask, torch.ones(add_y.shape[0], dtype=torch.bool)))
 
         #remove the unique edge id from the edge features, as it's no longer needed
-        batch['node', 'to', 'node'].edge_attr = batch['node', 'to', 'node'].edge_attr[:, 1:]
-        batch['node', 'rev_to', 'node'].edge_attr = batch['node', 'rev_to', 'node'].edge_attr[:, 1:]
+        batch['node', 'to', 'node'].edge_attr = batch['node', 'to', 'node'].edge_attr[:, 1:] # [Source 103]
+        batch['node', 'rev_to', 'node'].edge_attr = batch['node', 'rev_to', 'node'].edge_attr[:, 1:] # [Source 103-104]
         
         with torch.no_grad():
             batch.to(device)
-            out = model(batch.x_dict, batch.edge_index_dict, batch.edge_attr_dict)
+            out = model(batch.x_dict, batch.edge_index_dict, batch.edge_attr_dict) # [Source 104]
             out = out[('node', 'to', 'node')]
             out = out[mask]
             pred = out.argmax(dim=-1)
-            preds.append(pred)
-            ground_truths.append(batch['node', 'to', 'node'].y[mask])
-    pred = torch.cat(preds, dim=0).cpu().numpy()
-    ground_truth = torch.cat(ground_truths, dim=0).cpu().numpy()
-    f1 = f1_score(ground_truth, pred)
+            preds.append(pred) # [Source 105]
+            ground_truths.append(batch['node', 'to', 'node'].y[mask]) # [Source 105]
 
-    return f1
+    pred = torch.cat(preds, dim=0).cpu().numpy()
+    ground_truth = torch.cat(ground_truths, dim=0).cpu().numpy() # [Source 105]
+
+    # 计算 F1, Precision, Recall, Confusion Matrix
+    f1 = f1_score(ground_truth, pred, zero_division=0) # [Source 105: Original f1 calculation]
+    precision = precision_score(ground_truth, pred, zero_division=0)
+    recall = recall_score(ground_truth, pred, zero_division=0)
+    conf_matrix = confusion_matrix(ground_truth, pred)
+
+    # 返回所有指标
+    return f1, precision, recall, conf_matrix # 修改返回值
 
 def save_model(model, optimizer, epoch, args, data_config):
     # Save the model in a dictionary
